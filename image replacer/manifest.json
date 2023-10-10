@@ -1,0 +1,38 @@
+{
+   "manifest_version": 3,
+   "name": "Chrome Exkittention",
+   "version": "0.0.1",
+   "web_accessible_resources": [
+      {
+         "resources": [
+            "/img/1.jpg",
+            "/img/2.jpg",
+            "/img/3.jpg",
+            "/img/4.jpg",
+            "/img/5.jpg"
+         ],
+         "matches": [
+            "<all_urls>"
+         ]
+      }
+   ],
+   "content_scripts": [
+      {
+         "matches": [
+            "<all_urls>"
+         ],
+         "js": [
+            "kitten.js"
+         ]
+      }
+   ],
+   "background": {
+      "service_worker": "background.js"
+   },
+   "action": {
+      "default_icon": "cat.png"
+   },
+   "permissions": [
+      "activeTab"
+   ]
+}
