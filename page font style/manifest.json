@@ -1,0 +1,31 @@
+{
+   "manifest_version": 3,
+   "name": "Page Font Style Extension",
+   "version": "0.0.1",
+   "description": "change the font style of a aspecific page",
+   "action": {
+      "default_icon": "icon.png",
+      "default_popup": "popup.html"
+   },
+   "permissions": [
+      "tabs",
+      "https://developer.chrome.com/*"
+   ],
+   "background": {
+      "service_worker": "eventPage.js"
+   },
+   "content_scripts": [
+      {
+         "matches": [
+            "https://developer.chrome.com/*"
+         ],
+         "js": [
+            "content.js",
+            "jquery-3.7.1.min.js"
+         ],
+         "css": [
+            "content.css"
+         ]
+      }
+   ]
+}
