@@ -1,0 +1,16 @@
+{
+   "manifest_version": 3,
+   "name": "SpeakIt",
+   "version": "0.0.1",
+   "description": "speak the selcted text",
+   "action": {
+      "default_icon": "icon.png"
+   },
+   "permissions": [
+      "tts",
+      "contextMenus"
+   ],
+   "background": {
+      "service_worker": "eventPage.js"
+   }
+}
