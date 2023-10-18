@@ -1,0 +1,19 @@
+body {
+   min-width: 340px;
+   min-height: 160px;
+   padding: 15px 10px;
+}
+
+input {
+   font-size: 16px;
+   font-weight: 400;
+   height: 24px;
+}
+
+#btnChange {
+   font-weight: 600;
+   background-color: black;
+   height: 30px;
+   color: white;
+   width: 90px;
+}

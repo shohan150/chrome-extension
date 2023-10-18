@@ -6,4 +6,10 @@ chrome.runtime.sendMessage({ todo: "showPageAction" });
 
 //------------------
 
-
+chrome.runtime.onMessage.addListener(function (msg, sender, sendRespoce) {
+   if (msg.todo == "changeColor") {
+      var addColor = msg.clickedColor;
+      console.log(addColor);
+      $('.fixed-table').css('color', addColor);
+   }
+});
