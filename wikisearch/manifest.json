@@ -1,0 +1,16 @@
+{
+   "manifest_version": 3,
+   "name": "Wikit",
+   "version": "0.0.1",
+   "description": "search wikipedia directly of a word",
+   "action": {
+      "default_icon": "icon.png"
+   },
+   "permissions": [
+      "tabs",
+      "contextMenus"
+   ],
+   "background": {
+      "service_worker": "eventPage.js"
+   }
+}
