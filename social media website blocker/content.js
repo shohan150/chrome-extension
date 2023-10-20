@@ -3,7 +3,7 @@
 // }
 
 const generateSTYLES = () => {
-   return `<style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
+  return `<style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
    body {
      background: #33cc99;
      color: #fff;
@@ -84,7 +84,7 @@ const generateSTYLES = () => {
 };
 
 const generateHTML = (pageName) => {
-   return `
+  return `
     
    <div class='c'>
        <div class='_404'>404</div>
@@ -96,28 +96,28 @@ const generateHTML = (pageName) => {
 };
 
 switch (window.location.hostname) {
-   case "www.youtube.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("YOUTUBE");
-      break;
-   case "www.facebook.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("FACEBOOK");
-      break;
-   case "www.netflix.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("NETFLIX");
-      break;
-   case "www.roblox.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("ROBLOX");
-      break;
-   case "discord.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("DISCORD");
-      break;
-   case "www.spotify.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("SPOTIFY");
-      break;
+  case "www.youtube.com":
+    document.head.innerHTML = generateSTYLES();
+    document.body.innerHTML = generateHTML("YOUTUBE");
+    break;
+  case "www.facebook.com":
+    document.head.innerHTML = generateSTYLES();
+    document.body.innerHTML = generateHTML("FACEBOOK");
+    break;
+  case "www.netflix.com":
+    document.head.innerHTML = generateSTYLES();
+    document.body.innerHTML = generateHTML("NETFLIX");
+    break;
+  case "www.roblox.com":
+    document.head.innerHTML = generateSTYLES();
+    document.body.innerHTML = generateHTML("ROBLOX");
+    break;
+  case "discord.com":
+    document.head.innerHTML = generateSTYLES();
+    document.body.innerHTML = generateHTML("DISCORD");
+    break;
+  case "www.spotify.com":
+    document.head.innerHTML = generateSTYLES();
+    document.body.innerHTML = generateHTML("SPOTIFY");
+    break;
 }
