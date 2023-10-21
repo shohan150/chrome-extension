@@ -118,7 +118,7 @@ const activateEyeDropper = () => {
          alert("Failed to copy the color code!");
       }
       document.body.style.display = "block";
-   }, 2000);
+   }, 10);
 }
 // sets up a setTimeout function to execute some code with a slight delay(10 milliseconds). 
 
