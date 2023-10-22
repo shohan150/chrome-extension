@@ -16,5 +16,13 @@ function gotMessage(message, sender, sendResponse) {
       elt.style['background-color'] = '#666666';
    }
    console.log(message.text);
+   //try opening camera on click
+   // navigator.mediaDevices.getUserMedia({
+   //    video: true,
+   //    audio: false,
+   // }).then(function (stream) {
+   //    console.log("The camera is now open.");
+   // });
+
 }
 

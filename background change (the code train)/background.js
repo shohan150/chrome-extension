@@ -1,8 +1,8 @@
 chrome.action.onClicked.addListener(buttonClicked);
 // defines a callback function to be executed when the user clicks the extension's icon in the browser's toolbar.
 
+
 function buttonClicked(tab) {
-   console.log(tab);
    let msg = {
       text: "hello"
    }
@@ -16,3 +16,4 @@ function buttonClicked(tab) {
 //   type: 'notification',
 //   text: 'Hello from the background script!',
 // };
+
