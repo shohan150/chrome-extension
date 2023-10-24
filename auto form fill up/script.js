@@ -9,11 +9,17 @@ for (var i = 0; i < textFields.length; i++) {
 
 //input type email
 var emailDom = ['google', 'hotmail', 'yahoo'];
-var emailFields = document.querySelectorAll('input[type="email"]');
+var emailFields = document.querySelectorAll('input[type="email"], input[type="text"][id="login"]');
 for (var i = 0; i < emailFields.length; i++) {
+   const numbers = '0123456789';
+   let NumString = '';
+   for (let i = 0; i < 3; i++) {
+      var counter = Math.floor(Math.random() * numbers.length);
+      NumString += numbers[counter];
+   }
    var counter = Math.floor(Math.random() * names.length);
    var counter2 = Math.floor(Math.random() * emailDom.length);
-   emailFields[i].value = `${names[counter]}@${emailDom[counter2]}.com`;
+   emailFields[i].value = `${names[counter]}${NumString}@${emailDom[counter2]}.com`;
 }
 
 //select option element
@@ -51,7 +57,7 @@ for (var i = 0; i < telephoneNumFields.length; i++) {
 }
 
 
-// input type number
+// input type number, password
 var numberFields = document.querySelectorAll('input[type="number"], input[type="text"][id="number"]');
 for (var i = 0; i < numberFields.length; i++) {
    const numbers = '0123456789';
@@ -81,4 +87,20 @@ for (var i = 0; i < dateFields.length; i++) {
    //console.log(randomDate);
    dateFields[i].value = randomDate;
    //console.log(dateFields[i].value);
+}
+
+//input type password
+var passwordFields = document.querySelectorAll('input[type="password"]');
+for (var i = 0; i < passwordFields.length; i++) {
+   const numbles = '0123456789!@#$%&(){}[]+-_\:;<>,.?/';
+   const capital = 'ABCDEFGHIZKLMNOPQRUVWXYZ';
+   const small = 'abcdefghijklmnopqrstuvwxyz';
+   let passString = '';
+   for (let i = 0; i < 3; i++) {
+      var counter1 = Math.floor(Math.random() * numbles.length);
+      var counter2 = Math.floor(Math.random() * capital.length);
+      var counter3 = Math.floor(Math.random() * small.length);
+      passString += capital[counter2] + numbles[counter1] + small[counter3];
+   }
+   passwordFields[i].value = passString;
 }
