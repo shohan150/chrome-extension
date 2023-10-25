@@ -2,10 +2,14 @@
 var textFields = document.querySelectorAll('input[type="text"]');
 
 var names = ['karim', 'rahim', 'sujon', 'fatema', 'rakib', 'raihan'];
-for (var i = 0; i < textFields.length; i++) {
+// for (var i = 0; i < textFields.length; i++) {
+//    var counter = Math.floor(Math.random() * names.length);
+//    textFields[i].value = names[counter];
+// }
+textFields.forEach(text => {
    var counter = Math.floor(Math.random() * names.length);
-   textFields[i].value = names[counter];
-}
+   text.value = names[counter];
+});
 
 //input type email
 var emailDom = ['google', 'hotmail', 'yahoo'];
