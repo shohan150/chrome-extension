@@ -1,81 +1,93 @@
-//input type text
-var textFields = document.querySelectorAll('input[type="text"]');
+const names = ['karim', 'rahim', 'sujon', 'fatema', 'rakib', 'raihan'];
+const emailDom = ['google', 'hotmail', 'yahoo'];
+const numbers = '0123456789';
+const capital = 'ABCDEFGHIZKLMNOPQRUVWXYZ';
+const small = 'abcdefghijklmnopqrstuvwxyz';
+const numbles = '0123456789!@#$%&(){}[]+-_\:;<>,.?/';
+const lorem = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut labore', 'et dolore', 'magna', 'aliqua'];
 
-var names = ['karim', 'rahim', 'sujon', 'fatema', 'rakib', 'raihan'];
-// for (var i = 0; i < textFields.length; i++) {
-//    var counter = Math.floor(Math.random() * names.length);
-//    textFields[i].value = names[counter];
-// }
+function randomNumber(data) {
+   var random = Math.floor(Math.random() * data.length);
+   return random;
+}
+
+//input type text
+var textFields = document.querySelectorAll('input[type="text"], input[type="search"], input[type="text"][id*="city" i], input[type="text"][id*="state" i], input[type="text"][id*="province" i]');
+
 textFields.forEach(text => {
-   var counter = Math.floor(Math.random() * names.length);
+   var counter = randomNumber(names);
    text.value = names[counter];
 });
 
 //input type email
-var emailDom = ['google', 'hotmail', 'yahoo'];
-var emailFields = document.querySelectorAll('input[type="email"], input[type="text"][id="login"]');
-for (var i = 0; i < emailFields.length; i++) {
-   const numbers = '0123456789';
+var emailFields = document.querySelectorAll('input[type="email"], input[type="text"][id*="login" i]');
+emailFields.forEach(email => {
+   const unique = 'xyz.3679';
    let NumString = '';
-   for (let i = 0; i < 3; i++) {
-      var counter = Math.floor(Math.random() * numbers.length);
+   for (let i = 0; i < 2; i++) {
+      var counter = randomNumber(numbers);
       NumString += numbers[counter];
    }
-   var counter = Math.floor(Math.random() * names.length);
-   var counter2 = Math.floor(Math.random() * emailDom.length);
-   emailFields[i].value = `${names[counter]}${NumString}@${emailDom[counter2]}.com`;
-}
+   var counter = randomNumber(names);
+   var counter2 = randomNumber(emailDom);
+   var counter3 = randomNumber(unique);
+   email.value = `${names[counter]}${unique[counter3]}${NumString}@${emailDom[counter2]}.com`;
+});
 
 //select option element
 var allSelectFields = document.querySelectorAll('select');
-for (var i = 0; i < allSelectFields.length; i++) {
-   var counter = Math.floor(Math.random() * allSelectFields[i].length);
-   allSelectFields[i].selectedIndex = counter;
-}
+allSelectFields.forEach(select => {
+   var counter = randomNumber(select);
+   select.selectedIndex = counter;
+});
 
 //textarea
-var textAreaFields = document.querySelectorAll('textarea');
-for (var i = 0; i < textAreaFields.length; i++) {
-   const lorem = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut labore', 'et dolore', 'magna', 'aliqua'];
+var textAreaFields = document.querySelectorAll('textarea, input[type="text"][id*="addr" i]');
+textAreaFields.forEach(textarea => {
    let areaString = '';
    for (let i = 0; i < 5; i++) {
       if (i > 0) {
          areaString += ' ';
       }
-      var counter = Math.floor(Math.random() * lorem.length);
+      var counter = randomNumber(lorem);
       areaString += lorem[counter];
    }
-   textAreaFields[i].innerText = areaString;
-}
+   textarea.innerText = areaString;
+});
+
 
 //input type tel
-var telephoneNumFields = document.querySelectorAll('input[type="tel"]');
-for (var i = 0; i < telephoneNumFields.length; i++) {
-   const numbers = '123456789';
-   let telNumString = '+880 1';
-   for (let i = 0; i < 9; i++) {
-      var counter = Math.floor(Math.random() * numbers.length);
-      telNumString += numbers[counter];
+var telephoneNumFields = document.querySelectorAll('input[type="tel"], input[type="text"][id*="phone" i], input[type="text"][id*="mobile" i]');
+telephoneNumFields.forEach(tel => {
+   const num = '123456789';
+   let telNumString = '+1 (';
+   for (let i = 0; i < 10; i++) {
+      if (i == 3) {
+         telNumString += ') ';
+      } else if (i == 6) {
+         telNumString += '-';
+      }
+      var counter = randomNumber(num);
+      telNumString += num[counter];
    }
-   telephoneNumFields[i].value = telNumString;
-}
+   tel.value = telNumString;
+});
 
 
-// input type number, password
-var numberFields = document.querySelectorAll('input[type="number"], input[type="text"][id="number"]');
-for (var i = 0; i < numberFields.length; i++) {
-   const numbers = '0123456789';
+// input type number
+var numberFields = document.querySelectorAll('input[type="number"], input[type="text"][id*="code" i], input[type="text"][id*="postal" i], input[type="text"][id*="amount" i]');
+numberFields.forEach(num => {
    let NumString = '';
    for (let i = 0; i < 4; i++) {
-      var counter = Math.floor(Math.random() * numbers.length);
+      var counter = randomNumber(numbers);
       NumString += numbers[counter];
    }
-   numberFields[i].value = NumString;
-}
+   num.value = NumString;
+});
 
 // input type date
-var dateFields = document.querySelectorAll('input[type="date"], input[type="text"][id="birth_date"]');
-for (var i = 0; i < dateFields.length; i++) {
+var dateFields = document.querySelectorAll('input[type="date"], input[type="text"][id*="date" i]');
+dateFields.forEach(date => {
    function getRandomDate() {
       const minYear = 1950;
       const maxYear = 2023;
@@ -88,23 +100,55 @@ for (var i = 0; i < dateFields.length; i++) {
       return formattedDate;
    }
    const randomDate = getRandomDate();
-   //console.log(randomDate);
-   dateFields[i].value = randomDate;
-   //console.log(dateFields[i].value);
-}
+   date.value = randomDate;
+});
 
 //input type password
 var passwordFields = document.querySelectorAll('input[type="password"]');
-for (var i = 0; i < passwordFields.length; i++) {
-   const numbles = '0123456789!@#$%&(){}[]+-_\:;<>,.?/';
-   const capital = 'ABCDEFGHIZKLMNOPQRUVWXYZ';
-   const small = 'abcdefghijklmnopqrstuvwxyz';
+passwordFields.forEach(pass => {
    let passString = '';
    for (let i = 0; i < 3; i++) {
-      var counter1 = Math.floor(Math.random() * numbles.length);
-      var counter2 = Math.floor(Math.random() * capital.length);
-      var counter3 = Math.floor(Math.random() * small.length);
+      var counter1 = randomNumber(numbles);
+      var counter2 = randomNumber(capital);
+      var counter3 = randomNumber(small);
       passString += capital[counter2] + numbles[counter1] + small[counter3];
    }
-   passwordFields[i].value = passString;
+   pass.value = passString;
+});
+
+//input type radio
+var radioFields = document.querySelectorAll('input[type="radio"]');
+if (!radioFields.length == 0) {
+   var radioCounter = randomNumber(radioFields);
+   radioFields.item(radioCounter).checked = true;
 }
+
+//input type url
+var urlFields = document.querySelectorAll('input[type="url"], input[type="text"][id*="url" i], input[type="text"][id*="website" i]');
+urlFields.forEach(link => {
+   counter = randomNumber(names);
+   linkString = `www.${names[counter]}.com`;
+   link.value = linkString;
+});
+
+//input type checkbox
+var checkboxeField = document.querySelectorAll('input[type="checkbox"]');
+checkboxeField.forEach(box => {
+   box.checked = true;
+});
+
+//input type color
+var colorField = document.querySelectorAll('input[type="color"]');
+colorField.forEach(color => {
+   colorCode = '#';
+   i = 0;
+   while (i < 6) {
+      digit = randomNumber(numbers);
+      colorCode += digit;
+      i++;
+   }
+   color.value = colorCode;
+   console.log(colorCode);
+   console.log(color);
+
+});
