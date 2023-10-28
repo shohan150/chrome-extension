@@ -101,7 +101,7 @@ function gotMessage(message, sender, sendResponse) {
 
 
    //input type tel
-   var telephoneNumFields = document.querySelectorAll('input[type="tel"], input[type="text"][id*="phone" i], input[type="text"][id*="mobile" i], input[type="text"][id*="contact" i]');
+   var telephoneNumFields = document.querySelectorAll('input[type="tel"], input[type="text"][id*="phone" i], input[type="text"][id*="mobile" i], input[type="text"][id*="contact" i], input[type="text"][id*="number" i]');
    telephoneNumFields.forEach(tel => {
       const num = '123456789';
       let telNumString = '+1 (';
