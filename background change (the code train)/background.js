@@ -1,7 +1,6 @@
 chrome.action.onClicked.addListener(buttonClicked);
 // defines a callback function to be executed when the user clicks the extension's icon in the browser's toolbar.
 
-
 function buttonClicked(tab) {
    let msg = {
       text: "hello"

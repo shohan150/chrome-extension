@@ -1,10 +1,19 @@
+chrome.runtime.onMessage.addListener(gotMessage);
+
+function gotMessage(message, sender, sendResponse) {
+   console.log('button works');
+
+};
+
+
 let imgs = document.getElementsByTagName('img');
-// console.log(typeof (imgs));
 let imgs2 = [];
 
 for (images of imgs) {
-   // images.src = chrome.runtime.getURL(filenames[r]);
    imgs2.push(images.src);
 }
-// console.log(typeof (imgs));
-// console.log(imgs2);
+
+chrome.runtime.sendMessage({ text: "Hello from content script!" });
+
+
+
