@@ -1,9 +1,10 @@
 let imgs = document.getElementsByTagName('img');
-// const imgArray = Array.from(imgs);
-console.log(imgs);
+// console.log(typeof (imgs));
+let imgs2 = [];
 
-// for (images of imgs) {
-//    var r = Math.floor(Math.random() * filenames.length);
-//    file = filenames[r];
-//    images.src = chrome.runtime.getURL(filenames[r]);
-// }
+for (images of imgs) {
+   // images.src = chrome.runtime.getURL(filenames[r]);
+   imgs2.push(images.src);
+}
+// console.log(typeof (imgs));
+// console.log(imgs2);
