@@ -8,7 +8,6 @@ $(function () {
       //          chrome.tabs.sendMessage(tabs[0].id, { todo: "changeColor", clickedColor: color });
       //       });
 
-
    });
 
    $('#btnChange').click(function () {

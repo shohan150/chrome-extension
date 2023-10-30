@@ -8,7 +8,6 @@ const filenames = [
 ]
 
 let imgs = document.getElementsByTagName('img');
-// const imgArray = Array.from(imgs);
 console.log(imgs);
 
 for (images of imgs) {
