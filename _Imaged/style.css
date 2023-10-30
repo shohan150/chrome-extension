@@ -1,0 +1,42 @@
+body {
+   min-width: 480px;
+   min-height: 520px;
+   background-image: linear-gradient(to top, #df8f3b, #e4a947, #e8c258, #eadb6d, #ebf487);
+   padding: 5px 20px;
+}
+
+h1 {
+   font-size: 22px;
+   display: inline-block;
+}
+
+#all {
+   font-size: 18px;
+   padding: 9px 18px;
+   background-color: orangered;
+   color: white;
+   box-shadow: inset;
+   display: inline-block;
+   border: none;
+   font-weight: 600;
+   margin-left: 16px;
+   box-shadow: 5px 6px 15px -1px rgba(0, 0, 0, 0.75);
+   -webkit-box-shadow: 5px 6px 15px -1px rgba(0, 0, 0, 0.75);
+   -moz-box-shadow: 5px 6px 15px -1px rgba(0, 0, 0, 0.75);
+}
+
+#allImg div {
+   background-color: #ebf48723;
+   margin: 25px 0px;
+   border-radius: 20px;
+   padding: 10px;
+   box-shadow: 6px 6px 27px -9px rgba(0, 0, 0, 0.75);
+   -webkit-box-shadow: 6px 6px 27px -9px rgba(0, 0, 0, 0.75);
+   -moz-box-shadow: 6px 6px 27px -9px rgba(0, 0, 0, 0.75);
+}
+
+img {
+   width: auto;
+   height: 120px;
+   border-radius: 12px;
+}
