@@ -1,8 +1,24 @@
-// popup.js
-chrome.extension.onConnect.addListener(function (port) {
-   if (port.name === "content-script") {
-      port.onMessage.addListener(function (msg) {
-         console.log("Message received in popup:", msg.message);
-      });
+
+document.getElementById('all').addEventListener('click', function () {
+   const data = {
+      message: 'Hello from popup!',
+   };
+   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const activeTab = tabs[0];
+      chrome.tabs.sendMessage(activeTab.id, data);
+   });
+});
+
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+   console.log(message);
+   console.log(typeof (message));
+   const container = document.getElementById("allImg");
+   for (let i = 0; i < message.length; i++) {
+      const divs = document.createElement('div');
+      const productImages = document.createElement("img");
+      productImages.src = message[i];
+      container.appendChild(divs);
+      divs.appendChild(productImages);
    }
 });
