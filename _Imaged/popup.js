@@ -1,4 +1,3 @@
-
 document.getElementById('all').addEventListener('click', function () {
    const data = {
       message: 'Hello from popup!',
@@ -10,8 +9,9 @@ document.getElementById('all').addEventListener('click', function () {
 });
 
 
+const container = document.getElementById("allImg");
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-   const container = document.getElementById("allImg");
+   container.innerHTML = '';
    for (let i = 0; i < message.length; i++) {
       if (message[i]) {
          const divs = document.createElement('div');
