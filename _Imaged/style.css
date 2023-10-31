@@ -1,5 +1,5 @@
 body {
-   min-width: 480px;
+   min-width: 620px;
    min-height: 520px;
    background-image: linear-gradient(to top, #df8f3b, #e4a947, #e8c258, #eadb6d, #ebf487);
    padding: 5px 20px;
@@ -37,6 +37,26 @@ h1 {
 
 img {
    width: auto;
-   height: 120px;
    border-radius: 12px;
+}
+
+#product-info h2 {
+   font-size: 34px;
+}
+
+#product-info h1 {
+   font-size: 40px;
+   color: orangered;
+   margin: 5px 0px 10px;
+}
+
+#product-info p {
+   font-size: 18px;
+   font-weight: 600;
+   line-height: 1.6em;
+}
+
+#allImg div img {
+   width: 180px;
+   margin: 10px;
 }
