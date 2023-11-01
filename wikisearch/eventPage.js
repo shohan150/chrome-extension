@@ -10,9 +10,7 @@ function fixedEncodeURI(str) {
 
    // The `encodeURI()` function is a built -in JavaScript function used to encode a URI(Uniform Resource Identifier) component. 
 
-   // URIs can contain special characters, and when you want to include them in a URI, you need to properly encode those characters to ensure the URI remains valid and doesn't break.
-
-   // It takes a single argument, which is a string (str) that represents the URI component you want to encode. It encodes all characters in the string, except for the following characters: `,`, `/`, `:`, `;`, `=`, `?`, `&`, `@`, `#`, `$`, and`+`.These characters are reserved for specific purposes in URIs and are not encoded. 
+   // URIs can contain special characters, and when you want to include them in a URI, you need to properly encode those characters to ensure the URI remains valid. It takes a string that represents the URI component you want to encode. It encodes all characters in the string, except for the following characters: `,`, `/`, `:`, `;`, `=`, `?`, `&`, `@`, `#`, `$`, and`+`.These characters are reserved for specific purposes in URIs and are not encoded. 
 
    // It replaces spaces with `%20`.This is because spaces are not allowed in URIs, and`%20` is the URL - encoded representation of a space character. It encodes special characters using a `%` sign followed by two hexadecimal digits.For example, the character `#` is encoded as `%23`, and the character `?` is encoded as `%3F`.
 
@@ -20,8 +18,6 @@ function fixedEncodeURI(str) {
    //    const encodedString = encodeURI(originalString);
    //    console.log(encodedString);
    //Output: "This%20is%20an%20example%20string:%20%3F#"
-
-   //  You typically use `encodeURI()` when you need to include data within a URI, such as query parameters or path segments, to ensure that the URI remains valid and correctly represents the intended data.It helps prevent issues with characters that have special meanings in URIs.
 
    //  The replacement of `[` and `]` characters is necessary because these characters can be used for special purposes in URIs. In the context of query strings, `[` and `]` characters can be used to define the boundaries of arrays or lists of values, and they might have special meanings in certain web applications or services. For example, in some APIs or web services, query parameters like `myArray[0]` and `myArray[1]` could be used to pass an array of values. To ensure that these characters are correctly encoded and don't interfere with the intended functionality of the URI, they should be percent-encoded when included in the URI. For instance, `[` is percent-encoded as `%5B`, and `]` is percent-encoded as `%5D`.
 

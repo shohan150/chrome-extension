@@ -22,22 +22,21 @@ const pickedColors = JSON.parse(localStorage.getItem("picked-colors") || "[]");
 
 //  `|| "[]"`: a logical OR operator. If the value retrieved from `localStorage` is `null` (indicating no data was found), it defaults to an empty array represented as a JSON string `"[]"`. This way, you ensure that `pickedColors` is always an array, whether there's existing data or not.
 
-// So, `pickedColors` will be an array containing the data retrieved from "picked-colors" in `localStorage`, or an empty array `[]`
 
 // Copying the color code to the clipboard and updating the element text
 
 const copyColor = (elem) => {
    elem.innerText = "Copied";
    navigator.clipboard.writeText(elem.dataset.color);
-   setTimeout(() => elem.innerText = elem.dataset.color, 10);
+   setTimeout(() => elem.innerText = elem.dataset.color, 100);
 }
 // (elem) => { ... }: defines an arrow function with a single parameter, elem, which represents an HTML element. 
 
 // elem.innerText = "Copied";: changes the visible text of the HTML element to indicate that the color has been copied.
 
-// navigator.clipboard.writeText(elem.dataset.color);: the navigator.clipboard.writeText() method is used to write the value of the elem.dataset.color attribute (which contain the color code) to the user's clipboard. This method provides an asynchronous way to interact with the clipboard and write text to it.
+// navigator.clipboard.writeText(elem.dataset.color);: the navigator.clipboard.writeText() method is used to write the value of the elem.dataset.color attribute(custom html data attribute. It's value is assigned later in the code) to the user's clipboard. This method provides an asynchronous way to interact with the clipboard and write text to it.
 
-// setTimeout(() => elem.innerText = elem.dataset.color, 1000);: After the color code has been copied, this line sets a timeout to change the text content of the element back to its original color code (contained in elem.dataset.color) after one second (1000 milliseconds). This gives visual feedback to the user that the color has been successfully copied.
+// setTimeout(() => elem.innerText = elem.dataset.color, 1000);: After the color code has been copied, this line sets a timeout to change the text content of the element back to its original color code (contained in elem.dataset.color) after one second (100 milliseconds). This gives visual feedback to the user that the color has been successfully copied.
 
 const showColor = () => {
    if (!pickedColors.length) return; // Returning if there are no picked colors
@@ -48,8 +47,7 @@ const showColor = () => {
         </li>
     `).join(""); // // Generating li for the picked color and adding it to the colorList
    // pickedColors is an array containing color values.
-   // The .map() method is used to iterate over an array and apply a function to each element in the array. The .map() method is often used for transforming data in one array into a new array with the transformed values.(color => ...) is an arrow function that defines what should happen for each item in the array. 
-
+   // The .map() method is used to iterate over an array and apply a function to each element in the array. 
    // .join() method is used to concatenate the elements of an array into a single string. It takes an optional argument (seperator) that specifies the separator to use between the array elements.
    // For example:
    // const fruits = ["apple", "banana", "cherry"];

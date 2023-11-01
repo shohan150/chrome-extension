@@ -8,8 +8,8 @@
       "default_popup": "popup.html"
    },
    "permissions": [
-      "tabs",
-      "https://developer.chrome.com/*"
+      "tabs"
+      // "https://developer.chrome.com/*"
    ],
    "background": {
       "service_worker": "eventPage.js"
