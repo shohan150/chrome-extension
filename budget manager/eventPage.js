@@ -32,11 +32,9 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
                   message: "Looks like you have reached your limit"
                };
                chrome.notifications.create('limitNotif', notif);
-               console.log(newTotal + '0123456');
             }
             else {
                chrome.storage.sync.set({ 'total': newTotal });
-               console.log(newTotal + '78910');
             }
          })
       }

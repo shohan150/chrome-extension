@@ -3,6 +3,9 @@ $(function () {
    chrome.storage.sync.get('limit', function (budget) {
       $('#limit').val(budget.limit);
    });
+   // retrieves a single item with the key 'limit'. The callback function provided (in this case, an anonymous function) is called once the data is retrieved.
+
+   // $('#limit').val(budget.limit): sets the value of an HTML element with the id 'limit'to the value of 'budget.limit'. The 'budget' object is the result of the data retrieved from storage.
 
 
    $('#saveLimit').click(function () {
@@ -22,7 +25,6 @@ $(function () {
 
             // Managed Storage: Managed storage is a type of storage that's mainly used by Chrome Apps, not extensions.It's intended for managing settings and policies within a managed Chrome environment (e.g., an organization's IT department controlling settings).
 
-            //close the current browser window or tab
             var notif = {
                type: 'basic',
                iconUrl: 'icon.png',
@@ -31,6 +33,7 @@ $(function () {
             };
             chrome.notifications.create('limitNotif', notif);
             close();
+            //close the current browser window or tab
          });
       }
    });
