@@ -14,6 +14,7 @@ const info = document.getElementById("product-info");
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
    if (message.type === "name") {
+      info.innerHTML = '';
       const productName = document.createElement('h2');
       productName.innerText = `Product Name: ${message.data}`;
       info.appendChild(productName);

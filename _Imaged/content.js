@@ -15,7 +15,7 @@ const productPrice = document.querySelector('.product-price span').innerText;
 
 //description
 const productDes = document.querySelector('#product-tab-description .full-description').innerText;
-console.log(productDes);
+
 
 //establish connection between the content_script and popup.js
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
