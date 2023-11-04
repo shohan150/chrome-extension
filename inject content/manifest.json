@@ -1,7 +1,7 @@
 {
    "name": "Add content",
    "version": "0.0.1",
-   "description": "Add additional content to the page",
+   "description": "Add additional content to the page using content script",
    "manifest_version": 3,
    "content_scripts": [
       {

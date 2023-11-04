@@ -1,0 +1,29 @@
+In Chrome extensions, the `"permissions"` field is used to declare high-level permissions that your extension needs to interact with the browser and web content. The `"scripting"` permission, however, is intended for fine-grained control over script injection in specific contexts. While it's possible to use `"scripting"` without `"host_permissions"`, it's not recommended for the following reasons:
+
+1. Security: Using `"scripting"` without specifying `"host_permissions"` allows your extension to inject scripts into all websites, effectively granting broad access to web content. This can be a security risk because it might lead to unintended consequences or even malicious behavior.
+
+2. Best Practices: It's generally best practice to specify the exact websites or origins where your extension should operate. This provides a more controlled and predictable experience for users and reduces the risk of your extension interfering with websites it wasn't designed for.
+
+3. User Trust: Users expect extensions to respect their privacy and not interfere with web content indiscriminately. When you specify `"host_permissions"`, users are more likely to trust that your extension operates only on websites you've declared.
+
+If your extension needs to interact with specific websites, it's recommended to use both `"scripting"` and `"host_permissions"`. By specifying the domains where your extension is allowed to inject scripts, you can provide a more secure and trustworthy experience for your users.
+
+Here's an example of how you might use `"scripting"` with `"host_permissions"` in your manifest:
+
+{
+  "name": "My Extension",
+  "version": "1.0",
+  "permissions": [
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://example.com/*",
+    "https://anotherdomain.com/*"
+  ]
+}
+
+In this example, the extension can use `"scripting"` to inject scripts into pages on `example.com` and `anotherdomain.com`, but it won't be able to inject scripts into other websites. This provides a more controlled and secure interaction with web content.
+
+Permissions: The "permissions" key is used to declare a set of high-level permissions that your extension requires to interact with the browser, other extensions, or specific resources. These permissions apply globally to your extension.
+
+Host Permissions: The "host_permissions" key is used to specify which URLs or domains your extension is allowed to interact with on a per-origin basis. This is a more fine-grained control compared to global permissions. If you don't declare "host_permissions", your extension can still use permissions declared in the "permissions" field, but it will have global access. "host_permissions" restricts this access to specific origins. You can use host permissions to restrict access to specific websites and use the "scripting" permission to inject scripts into those websites. This combination provides more control over where your extension can operate and what it can do on different webpages. If you want your extension to interact with all websites, you can use host permissions with "<all_urls>" to specify access to all domains.
