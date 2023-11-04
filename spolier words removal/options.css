@@ -1,0 +1,11 @@
+.hidden {
+   display: none;
+}
+
+.individual-words {
+   padding: 10px 0px;
+}
+
+.individual-words div {
+   padding: 2px 0px;
+}

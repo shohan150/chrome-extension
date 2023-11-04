@@ -5,30 +5,26 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Choose words to hide</title>
-   <style>
-      .hidden {
-         display: none;
-      }
-   </style>
+   <link rel="stylesheet" href="options.css">
 </head>
 
 <body>
    <div class="keyword-holder">
       <div class="keyword-row">
          <div class="individual-words">
-            <div class="input-item">
+            <div class="input-item keyword">
                <label for="">Keyword</label>
                <input type="text" placeholder="Keyword...">
             </div>
-            <div class="input-item">
+            <div class="input-item type">
                <label for="">Select type</label>
                <select name="" id="">
-                  <option value="0">Replace</option>
-                  <option value="1">Remove</option>
+                  <option value="0">Remove</option>
+                  <option value="1">Replace</option>
                   <option value="2">Blur</option>
                </select>
             </div>
-            <div class="input-item hidden">
+            <div class="input-item hidden replace">
                <label for="">Replace With</label>
                <input type="text" placeholder="Replacing word...">
             </div>
