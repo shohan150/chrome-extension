@@ -8,3 +8,13 @@ $(function () {
    })
 
 })
+
+async function checkIsPinned() {
+   let userSettings = await chrome.action.getUserSettings();
+   if (userSettings.isOnToolbar == true) {
+      document.querySelector('h1 span').innerText = "The extension is pinned";
+   } else {
+      document.querySelector('h1 span').innerText = "You haven't pinned the extension";
+   }
+}
+checkIsPinned();
