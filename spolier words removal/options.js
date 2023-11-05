@@ -2,7 +2,16 @@
 
 function buildSaveArray() {
    var saveArray = [];
+   var element = document.querySelectorAll('.individual-words');
+   for (var i = 0; i < element.length; i++) {
+      var obj = {};
+      obj.keyword = element[i].querySelector('.keyword input').value;
+      obj.type = element[i].querySelector('.type select').value;
+      obj.replace = element[i].querySelector('.replace input').value;
+      saveArray.push(obj);
+   }
    saveOptions(saveArray);
+   console.log(saveArray);
 }
 
 const saveOptions = (saveArray) => {
@@ -28,17 +37,28 @@ const saveOptions = (saveArray) => {
 const restoreOptions = () => {
    chrome.storage.sync.get({ keywordArray: [] }, (items) => {
       buildOptionDisplay(items.keywordArray);
+      console.log(items.keywordArray);
    });
 };
 
 function buildOptionDisplay(item) {
+   if (item.length == 0) {
+      document.querySelector('.add-keyword').click();
+   }
    for (var i = 0; i < item.length; i++) {
-
+      if (typeof (item[i]) == 'object') {
+         // console.log(item[i]);
+         createRowWithOptions(item[i]);
+      }
    }
 }
 
 function createRowWithOptions(obj) {
    var individualWords = document.querySelector('.individual-words').innerHTML;
+   if (typeof (document.querySelector('.individual-words').dataset.id) === 'undefined') {
+      document.querySelector('.individual-words').remove();
+   }
+
    var newRow = document.createElement('div');
    newRow.innerHTML = individualWords;
    newRow.classList.add('individual-words');
@@ -48,7 +68,6 @@ function createRowWithOptions(obj) {
    document.querySelector('.keyword-row').appendChild(newRow);
 
    var newElement = document.querySelector('.keyword-holder .keyword-row .individual-words[data-id="' + timeStamp + '"]');
-   console.log(newElement);
 
    newElement.querySelector('.keyword input').value = obj.keyword;
    newElement.querySelector('.type select').value = obj.type;
