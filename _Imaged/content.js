@@ -1,30 +1,55 @@
-//import product images
-const imgs = document.querySelectorAll('.product-image img');
-let imgs2 = [];
+chrome.storage.local.get(['productName', 'price'], function (result) {
 
-for (images of imgs) {
-   imgs2.push(images.src);
-}
+   //import product images
+   var imgPath = '.product-image img';
+   const imgs = document.querySelectorAll(imgPath);
+   let productImgs = [];
 
-//product name
-const productName = document.querySelector('.product-details h1').innerText;
-
-//price
-const productPrice = document.querySelector('.product-price span').innerText;
+   for (images of imgs) {
+      productImgs.push(images.src);
+   }
 
 
-//description
-const productDes = document.querySelector('#product-tab-description .full-description').innerText;
+   //-------------------------------------------
+
+   //product name
+   // var namePath = '.product-details h1';
+   // const productName = document.querySelector(namePath).innerText;
+   const value1 = result.productName.firstPath;
+   const value2 = result.productName.secondPath;
+   var nameQuery = value1 + ' ' + value2;
+   const productName = document.querySelector(nameQuery).innerText;
 
 
-//establish connection between the content_script and popup.js
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-   // console.log('Message received in content script:', message.message);
-   chrome.runtime.sendMessage({ type: "img", data: imgs2 });
-   chrome.runtime.sendMessage({ type: "name", data: productName });
-   chrome.runtime.sendMessage({ type: "price", data: productPrice });
-   chrome.runtime.sendMessage({ type: "des", data: productDes });
+   //price
+   // var pricePath = '.product-price span';
+   // const productPrice = document.querySelector(pricePath).innerText;
+   const value11 = result.price.firstPath;
+   const value12 = result.price.secondPath;
+   var priceQuery = value11 + ' ' + value12;
+   const productPrice = document.querySelector(priceQuery).innerText;
+
+   //----------------------------------------------
+
+
+
+
+   //description
+   var descriptionPath = '#product-tab-description .full-description';
+   const productDescription = document.querySelector(descriptionPath).innerText;
+
+
+   //establish connection between the content_script and popup.js
+   chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+      // console.log('Message received in content script:', message.message);
+      chrome.runtime.sendMessage({ type: "img", data: productImgs });
+      chrome.runtime.sendMessage({ type: "name", data: productName });
+      chrome.runtime.sendMessage({ type: "price", data: productPrice });
+      chrome.runtime.sendMessage({ type: "des", data: productDescription });
+   });
+
 });
+
 
 
 

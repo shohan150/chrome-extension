@@ -18,6 +18,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       const productName = document.createElement('h2');
       productName.innerText = `Product Name: ${message.data}`;
       info.appendChild(productName);
+
    }
    if (message.type === "price") {
       const productPrice = document.createElement('h1');
@@ -29,18 +30,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       productDes.innerText = message.data;
       info.appendChild(productDes);
    }
-   // if (message.type === "img") {
-   //    container.innerHTML = '';
-   //    for (let i = 0; i < message.data.length; i++) {
-   //       if (message.data[i]) {
-   //          const divs = document.createElement('div');
-   //          const productImages = document.createElement("img");
-   //          productImages.src = message.data[i];
-   //          container.appendChild(divs);
-   //          divs.appendChild(productImages);
-   //       }
-   //    }
-   // }
    if (message.type === "img") {
       container.innerHTML = '';
       const divs = document.createElement('div');
@@ -54,3 +43,5 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       }
    }
 });
+
+
