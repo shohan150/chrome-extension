@@ -7,9 +7,19 @@
 <link rel="stylesheet" href="popup.css">
 
 <body>
-   <button id="captureScreenshot">Capture Screenshot</button>
-   <div id="imgs">
-      <img src="" alt="">
+   <div class="visibleTab">
+      <h3>Using chrome's captureVisibleTab APi</h3>
+      <button id="captureScreenshot">Capture Screenshot</button>
+      <div id="imgs">
+         <img src="" alt="">
+      </div>
+   </div>
+   <div class="html2canvas">
+      <h3>Using HTML to Canvas</h3>
+      <button id="captureSS">Capture Screenshot</button>
+      <div id="imgs">
+         <img src="" alt="">
+      </div>
    </div>
 
    <script src="popup.js"></script>

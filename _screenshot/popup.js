@@ -20,3 +20,4 @@ document.getElementById('captureScreenshot').addEventListener('click', () => {
       })
    });
 })
+
