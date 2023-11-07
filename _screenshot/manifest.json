@@ -12,7 +12,7 @@
    "web_accessible_resources": [
       {
          "resources": [
-            "html2canvas.min.js"
+            "html2canvas.js"
          ],
          "matches": [
             "<all_urls>"
