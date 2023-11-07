@@ -1,0 +1,13 @@
+   body {
+      min-width: 240px;
+   }
+
+   #imgs img {
+      max-width: 480px;
+   }
+
+   button {
+      padding: 4px 10px;
+      font-size: 14px;
+      margin: 6px 0px;
+   }
