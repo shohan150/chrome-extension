@@ -51,19 +51,11 @@ function captureScrollingScreenshot() {
 
          await new Promise((resolve) => setTimeout(resolve, 500));
 
-         const imageData = await captureVisibleTab();
-         chrome.runtime.sendMessage({ action: 'showScreenshot', imageData });
+         chrome.runtime.sendMessage({ action: 'captureVisibleTab' }, function (screenshotUrl) {
+            chrome.runtime.sendMessage({ action: 'showScreenshot', imageData: screenshotUrl });
+         });
       }
    };
 
    captureScreenshots();
 }
-
-function captureVisibleTab() {
-   return new Promise((resolve) => {
-      chrome.tabs.captureVisibleTab(function (screenshotUrl) {
-         resolve(screenshotUrl);
-      });
-   });
-}
-
