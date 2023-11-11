@@ -47,3 +47,21 @@ document.getElementById('captureScreen').addEventListener('click', () => {
       chrome.tabs.sendMessage(tabs[0].id, { message: 'Hello' });
    });
 });
+
+
+document.getElementById('captureScrolling').addEventListener('click', () => {
+   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { action: 'captureScrolling' });
+   });
+});
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+   if (message.action === 'showScreenshot') {
+      displayScreenshot(message.imageData);
+   }
+});
+
+function displayScreenshot(imageData) {
+   const screenshotContainer = document.getElementById('screenshotContainer');
+   screenshotContainer.innerHTML = '<img src="' + imageData + '" alt="Scrolling Screenshot">';
+}

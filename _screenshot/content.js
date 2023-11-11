@@ -27,3 +27,43 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       capture();
    }
 });
+
+
+
+//----------------------
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+   if (message.action === 'captureScrolling') {
+      captureScrollingScreenshot();
+   }
+});
+
+function captureScrollingScreenshot() {
+   const totalHeight = document.body.scrollHeight;
+   const viewportHeight = window.innerHeight;
+
+   const numScreenshots = Math.ceil(totalHeight / viewportHeight);
+   let currentScroll = 0;
+
+   const captureScreenshots = async () => {
+      for (let i = 0; i < numScreenshots; i++) {
+         const scrollPosition = i * viewportHeight;
+         window.scrollTo(0, scrollPosition);
+
+         await new Promise((resolve) => setTimeout(resolve, 500));
+
+         const imageData = await captureVisibleTab();
+         chrome.runtime.sendMessage({ action: 'showScreenshot', imageData });
+      }
+   };
+
+   captureScreenshots();
+}
+
+function captureVisibleTab() {
+   return new Promise((resolve) => {
+      chrome.tabs.captureVisibleTab(function (screenshotUrl) {
+         resolve(screenshotUrl);
+      });
+   });
+}
+
