@@ -1,19 +1,19 @@
 body {
    min-width: 620px;
    min-height: 520px;
-   background-image: linear-gradient(to top, #df8f3b, #e4a947, #e8c258, #eadb6d, #ebf487);
-   padding: 5px 20px;
+   background-image: linear-gradient(to left bottom, #e125ba, #e245ad, #df5da3, #d9729d, #cf859c);
 }
 
 h1 {
    font-size: 22px;
    display: inline-block;
+   padding-left: 20px;
 }
 
 #dataCollector {
    font-size: 18px;
    padding: 9px 18px;
-   background-color: orangered;
+   background-color: rgb(205, 29, 205);
    color: white;
    box-shadow: inset;
    display: inline-block;
