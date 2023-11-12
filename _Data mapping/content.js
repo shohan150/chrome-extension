@@ -14,6 +14,8 @@ chrome.storage.local.get(['productName'], function (result) {
 });
 
 
+//storage theke data nibo. seta diye query kore. resultant data ta popup e show korbe. 
+
 
 
 
