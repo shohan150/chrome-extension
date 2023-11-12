@@ -26,3 +26,25 @@ button {
    margin-left: 10px;
    background: red;
 }
+
+.container {
+   padding: 10px 0px 20px;
+}
+
+.container .fields {
+   padding: 20px;
+   font-size: 18px;
+   border: 2px solid black;
+   border-radius: 4px;
+   margin: 10px 0px;
+}
+
+#fieldName,
+#fieldPath {
+   height: 24px;
+   margin-right: 25px;
+}
+
+#fieldPath {
+   width: 240px;
+}

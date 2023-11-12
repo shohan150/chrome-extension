@@ -3,9 +3,10 @@ var saveField = document.getElementById('saveField');
 var dltField = document.getElementById('dltField');
 var container = document.querySelector('.container');
 
-
 newField.addEventListener('click', () => {
-   container.innerHTML += fieldHTML;
+   var newDiv = document.createElement('div');
+   newDiv.innerHTML = fieldHTML;
+   container.appendChild(newDiv);
 });
 
 saveField.addEventListener('click', () => {
@@ -17,7 +18,6 @@ dltField.addEventListener('click', () => {
    showStoredData();
 })
 
-
 var fieldHTML =
    `<div class="fields">
       <label>Name : </label>
@@ -25,6 +25,7 @@ var fieldHTML =
       <label>Path : </label>
       <input type="text" id="fieldPath">
    </div>`;
+
 
 function saveTheData() {
    var particularField = document.querySelectorAll('.container .fields');
@@ -43,14 +44,11 @@ function showStoredData() {
          container.innerHTML = '';
       } else {
          result.fieldsData.forEach(val => {
-            var showStoredValues =
-               `<div class="fields">
-               <label>Name : </label>
-               <input type="text" id="fieldName" value="${val.data}">
-               <label>Path : </label>
-               <input type="text" id="fieldPath" value="${val.path}">
-            </div>`
-            container.innerHTML += showStoredValues;
+            var newDiv = document.createElement('div');
+            newDiv.innerHTML = fieldHTML;
+            container.appendChild(newDiv);
+            newDiv.querySelector('input[id="fieldName"]').value = val.data;
+            newDiv.querySelector('input[id="fieldPath"]').value = val.path;
          });
       }
    });
