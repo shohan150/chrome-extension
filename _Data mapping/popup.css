@@ -40,3 +40,17 @@ h1 {
    font-weight: 600;
    line-height: 1.6em;
 }
+
+.dataDiv {
+   background-color: rgba(240, 255, 255, 0.65);
+   padding: 20px;
+   padding-bottom: 10px;
+   border-radius: 10px;
+   margin: 20px 5px;
+}
+
+.dataDiv h2 {
+   height: 40px;
+   margin: 0px;
+   text-decoration: underline;
+}

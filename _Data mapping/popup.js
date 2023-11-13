@@ -1,3 +1,4 @@
+//send message when the collect data butto has been clicked
 document.getElementById('dataCollector').addEventListener('click', function () {
    const data = {
       message: 'Hello from popup!',
@@ -9,16 +10,16 @@ document.getElementById('dataCollector').addEventListener('click', function () {
 });
 
 
+//receive message from content.js and show the data
 const siteData = document.getElementById("site-data");
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-   if (message.type === "name") {
-      siteData.innerHTML = '';
-      const productName = document.createElement('h2');
-      productName.innerText = `Product Name: ${message.data}`;
-      siteData.appendChild(productName);
-
-   }
+   var dataDivs = document.createElement('div');
+   dataDivs.classList.add('dataDiv');
+   var showData = `<h2>${message.title}: </h2>
+   <p>${message.data}</p>`;
+   dataDivs.innerHTML = showData;
+   siteData.appendChild(dataDivs);
 });
 
 
