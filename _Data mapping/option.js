@@ -3,6 +3,8 @@ var saveField = document.getElementById('saveField');
 var dltField = document.getElementById('dltField');
 var container = document.querySelector('.container');
 
+
+//add event listeners to the buttons
 newField.addEventListener('click', () => {
    var newDiv = document.createElement('div');
    newDiv.innerHTML = fieldHTML;
@@ -18,11 +20,13 @@ dltField.addEventListener('click', () => {
    showStoredData();
 })
 
+
+//declare the functions
 var fieldHTML =
    `<div class="fields">
       <label>Name : </label>
       <input type="text" id="fieldName">
-      <label>Path : </label>
+      <label>Query Path : </label>
       <input type="text" id="fieldPath">
    </div>`;
 
