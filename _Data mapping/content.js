@@ -5,8 +5,6 @@ chrome.storage.local.get(['fieldsData'], function (result) {
 
       const targetedData = document.querySelector(value2).innerText;
 
-      //console.log(targetedData);
-
       //establish connection between the content_script and popup.js
       chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
          chrome.runtime.sendMessage({ title: value1, data: targetedData });
