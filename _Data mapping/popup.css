@@ -10,7 +10,8 @@ h1 {
    padding-left: 20px;
 }
 
-#dataCollector {
+#dataCollector,
+#pathCollector {
    font-size: 18px;
    padding: 9px 18px;
    background-color: rgb(205, 29, 205);
