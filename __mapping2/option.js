@@ -29,19 +29,41 @@ function newItem() {
    var input1 = document.createElement('input');
    var input2 = document.createElement('input');
    var pathBtn = document.createElement('button');
+   var particularData = document.createElement('div');
+
 
    label1.innerText = 'Name : ';
    label2.innerText = 'Query Path : ';
    input1.id = 'fieldName';
    input2.id = 'fieldPath';
    pathBtn.innerText = 'Get Data Path';
-   pathBtn.addEventListener('click', getDataPath);
+
+   pathBtn.addEventListener('click', () => {
+      const message = {
+         name: 'get selector',
+      };
+      chrome.tabs.query({}, function (tabs) {
+         const test = tabs.forEach(tab => {
+            chrome.tabs.sendMessage(tab.id, message, function (response) {
+               if (chrome.runtime.lastError) {
+                  console.error(chrome.runtime.lastError);
+               } else {
+                  console.log(response);
+                  input2.value = response.value;
+                  particularData.innerHTML = `<h3> Collected data: </h3>
+                  <p>${response.data}</p>`;
+               }
+            });
+         });
+      });
+   });
 
    package.appendChild(label1);
    package.appendChild(input1);
    package.appendChild(label2);
    package.appendChild(input2);
    package.appendChild(pathBtn);
+   package.appendChild(particularData);
    return package;
 }
 
@@ -73,26 +95,3 @@ function showStoredData() {
    });
 }
 showStoredData();
-
-function getDataPath() {
-   const message = {
-      name: 'get selector',
-   };
-   chrome.tabs.query({}, function (tabs) {
-      console.log(tabs);
-      tabs.forEach(tab => {
-         console.log(tab);
-         chrome.tabs.sendMessage(tab.id, message);
-      });
-   });
-
-}
-
-
-// chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-//    if (message.name == 'element selector') {
-//       console.log(message.value);
-//       pathQuery.innerHTML = message.value;
-//       mainData.innerHTML = message.data;
-//    }
-// })

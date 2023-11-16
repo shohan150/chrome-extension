@@ -32,12 +32,11 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       document.addEventListener('click', function (event) {
          var selector = getSelector(event.target);
          var parentSelector = getSelector(event.target.parentElement);
-         console.log(selector);
-         console.log(parentSelector);
          var mainSelector = parentSelector + ' ' + selector;
          var mainData = document.querySelector(mainSelector).innerText;
 
-         chrome.runtime.sendMessage({ name: 'element selector', value: mainSelector, data: mainData });
+         sendResponse({ name: 'element selector', value: mainSelector, data: mainData });
+
       }, { once: true });
    }
    return true; // Recommended to keep the message channel open for sendResponse
