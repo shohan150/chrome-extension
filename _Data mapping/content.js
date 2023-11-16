@@ -15,33 +15,6 @@ chrome.storage.local.get(['fieldsData'], function (result) {
 });
 
 
-// gives the whole path to that element
-// document.addEventListener('click', function (event) {
-//    var selector = getSelector(event.target);
-//    console.log('Element selector:', selector);
-// });
-
-// function getSelector(element) {
-//    if (!element) return;
-
-//    var path = [];
-//    while (element.parentNode) {
-//       var index = [].indexOf.call(element.parentNode.children, element) + 1;
-//       var tagName = element.tagName.toLowerCase();
-//       var identifier = tagName;
-//       if (element.id) {
-//          identifier += '#' + element.id;
-//       } else if (element.className) {
-//          identifier += '.' + element.className.trim().replace(/\s+/g, '.');
-//       }
-//       path.unshift(identifier + ':nth-child(' + index + ')');
-//       element = element.parentNode;
-//    }
-
-//    return path.join(' > ');
-// }
-
-
 function getElementSelector(element) {
    if (!element) return;
 
@@ -54,20 +27,31 @@ function getElementSelector(element) {
 
    return selector;
 }
-document.addEventListener('click', function (event) {
-   var selector = getElementSelector(event.target);
-   console.log('Element selector:', selector);
 
-   //send element selector to popup
-   chrome.runtime.sendMessage({ name: 'element selector', selector: selector });
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+   // if (message.name == 'take element path') {
+   //    document.addEventListener('click', function (event) {
+   //       var selector = getElementSelector(event.target);
+   //       console.log('Element selector:', selector);
+
+   //       //send element selector to popup
+   //       chrome.runtime.sendMessage({ name: 'element selector', selector: selector });
+   //    });
+   // }
+   if (message.name === 'take element path') {
+      document.addEventListener('click', function (event) {
+         var clickedElement = event.target;
+         var elementInfo = {
+            id: clickedElement.id,
+            className: clickedElement.className,
+         };
+         console.log(elementInfo);
+         sendResponse(elementInfo);
+      }, { once: true });
+   }
+   return true; // Required to keep the message channel open for sendResponse
 });
 
-
-//identify all messages
-//from content.js to popup.js
-//popup.js to popup.html
-//adjust according to query selector
-//add show data button
 
 
 

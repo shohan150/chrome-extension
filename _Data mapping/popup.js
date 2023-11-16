@@ -1,3 +1,7 @@
+const siteData = document.getElementById("site-data");
+const dynamicData = document.getElementById("dynamic-data");
+const hidee = document.getElementById("hidee");
+
 //send message when the collect data butto has been clicked
 document.getElementById('dataCollector').addEventListener('click', function () {
    const message = {
@@ -9,10 +13,6 @@ document.getElementById('dataCollector').addEventListener('click', function () {
    });
 });
 
-
-//receive message from content.js and show the data
-const siteData = document.getElementById("site-data");
-
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
    if (message.name == 'send website data to popup') {
       var dataDivs = document.createElement('div');
@@ -22,8 +22,26 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       dataDivs.innerHTML = showData;
       siteData.appendChild(dataDivs);
    }
-   if (message.name == 'element selector') {
-      console.log(message.selector)
-   }
 });
+
+
+document.getElementById('pathCollector').addEventListener('click', function () {
+   hidee.style.display = "none";
+   const message = {
+      name: 'take element path',
+   };
+   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const activeTab = tabs[0];
+      chrome.tabs.sendMessage(activeTab.id, message, function (response) {
+         updatePopup(response);
+         hidee.style.display = "block";
+      });
+   });
+});
+
+function updatePopup(data) {
+   dynamicData.innerHTML = `<h3>${data.id} and ${data.className}</h3>`;
+}
+
+
 
