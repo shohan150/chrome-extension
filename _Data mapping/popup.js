@@ -22,5 +22,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       dataDivs.innerHTML = showData;
       siteData.appendChild(dataDivs);
    }
+   if (message.name == 'element selector') {
+      console.log(message.selector)
+   }
 });
 

@@ -42,22 +42,25 @@ chrome.storage.local.get(['fieldsData'], function (result) {
 // }
 
 
-// function getSelector(element) {
-//    if (!element) return;
+function getElementSelector(element) {
+   if (!element) return;
 
-//    var selector = element.tagName.toLowerCase();
-//    if (element.id) {
-//       selector += '#' + element.id;
-//    } else if (element.className) {
-//       selector += '.' + element.className.replace(/\s+/g, '.');
-//    }
+   var selector = element.tagName.toLowerCase();
+   if (element.id) {
+      selector += '#' + element.id;
+   } else if (element.className) {
+      selector += '.' + element.className.replace(/\s+/g, ',');
+   }
 
-//    return selector;
-// }
-// document.addEventListener('click', function (event) {
-//    var selector = getSelector(event.target);
-//    console.log('Element selector:', selector);
-// });
+   return selector;
+}
+document.addEventListener('click', function (event) {
+   var selector = getElementSelector(event.target);
+   console.log('Element selector:', selector);
+
+   //send element selector to popup
+   chrome.runtime.sendMessage({ name: 'element selector', selector: selector });
+});
 
 
 //identify all messages
