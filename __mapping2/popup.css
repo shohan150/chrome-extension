@@ -1,0 +1,57 @@
+body {
+   min-width: 620px;
+   min-height: 520px;
+   background-image: linear-gradient(to left bottom, #e125ba, #e245ad, #df5da3, #d9729d, #cf859c);
+}
+
+h1 {
+   font-size: 22px;
+   display: inline-block;
+   padding-left: 20px;
+}
+
+#dataCollector,
+#pathCollector {
+   font-size: 18px;
+   padding: 9px 18px;
+   background-color: rgb(205, 29, 205);
+   color: white;
+   box-shadow: inset;
+   display: inline-block;
+   border: none;
+   font-weight: 600;
+   margin-left: 16px;
+   box-shadow: 5px 6px 15px -1px rgba(0, 0, 0, 0.75);
+   -webkit-box-shadow: 5px 6px 15px -1px rgba(0, 0, 0, 0.75);
+   -moz-box-shadow: 5px 6px 15px -1px rgba(0, 0, 0, 0.75);
+}
+
+#site-data h2 {
+   font-size: 34px;
+}
+
+#site-data h1 {
+   font-size: 40px;
+   color: orangered;
+   margin: 5px 0px 10px;
+}
+
+#site-data p {
+   font-size: 18px;
+   font-weight: 600;
+   line-height: 1.6em;
+}
+
+.dataDiv {
+   background-color: rgba(240, 255, 255, 0.65);
+   padding: 20px;
+   padding-bottom: 10px;
+   border-radius: 10px;
+   margin: 20px 5px;
+}
+
+.dataDiv h2 {
+   height: 40px;
+   margin: 0px;
+   text-decoration: underline;
+}
