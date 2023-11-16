@@ -24,20 +24,4 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 
-document.getElementById('pathCollector').addEventListener('click', function () {
-   const message = {
-      name: 'take element path',
-   };
-   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const activeTab = tabs[0];
-      chrome.tabs.sendMessage(activeTab.id, message, function (response) {
-         updatePopup(response);
-      });
-   });
-});
-
-function updatePopup(data) {
-   dynamicData.innerHTML = `<h3>${data.id} and ${data.className}</h3>`;
-}
-
 
