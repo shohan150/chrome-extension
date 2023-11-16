@@ -1,6 +1,5 @@
 const siteData = document.getElementById("site-data");
 const dynamicData = document.getElementById("dynamic-data");
-const hidee = document.getElementById("hidee");
 
 //send message when the collect data butto has been clicked
 document.getElementById('dataCollector').addEventListener('click', function () {
@@ -26,7 +25,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 
 document.getElementById('pathCollector').addEventListener('click', function () {
-   hidee.style.display = "none";
    const message = {
       name: 'take element path',
    };
@@ -34,7 +32,6 @@ document.getElementById('pathCollector').addEventListener('click', function () {
       const activeTab = tabs[0];
       chrome.tabs.sendMessage(activeTab.id, message, function (response) {
          updatePopup(response);
-         hidee.style.display = "block";
       });
    });
 });
@@ -42,6 +39,5 @@ document.getElementById('pathCollector').addEventListener('click', function () {
 function updatePopup(data) {
    dynamicData.innerHTML = `<h3>${data.id} and ${data.className}</h3>`;
 }
-
 
 
