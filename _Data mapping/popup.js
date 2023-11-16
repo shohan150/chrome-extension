@@ -1,11 +1,11 @@
 //send message when the collect data butto has been clicked
 document.getElementById('dataCollector').addEventListener('click', function () {
-   const data = {
-      message: 'Hello from popup!',
+   const message = {
+      name: 'send data of already set path',
    };
    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const activeTab = tabs[0];
-      chrome.tabs.sendMessage(activeTab.id, data);
+      chrome.tabs.sendMessage(activeTab.id, message);
    });
 });
 
@@ -14,11 +14,13 @@ document.getElementById('dataCollector').addEventListener('click', function () {
 const siteData = document.getElementById("site-data");
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-   var dataDivs = document.createElement('div');
-   dataDivs.classList.add('dataDiv');
-   var showData = `<h2>${message.title}: </h2>
+   if (message.name == 'send website data to popup') {
+      var dataDivs = document.createElement('div');
+      dataDivs.classList.add('dataDiv');
+      var showData = `<h2>${message.title}: </h2>
    <p>${message.data}</p>`;
-   dataDivs.innerHTML = showData;
-   siteData.appendChild(dataDivs);
+      dataDivs.innerHTML = showData;
+      siteData.appendChild(dataDivs);
+   }
 });
 

@@ -7,7 +7,9 @@ chrome.storage.local.get(['fieldsData'], function (result) {
 
       //establish connection between the content_script and popup.js
       chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-         chrome.runtime.sendMessage({ title: value1, data: targetedData });
+         if (message.name == 'send data of already set path') {
+            chrome.runtime.sendMessage({ name: 'send website data to popup', title: value1, data: targetedData });
+         }
       });
    });
 });
@@ -40,22 +42,22 @@ chrome.storage.local.get(['fieldsData'], function (result) {
 // }
 
 
-function getSelector(element) {
-   if (!element) return;
+// function getSelector(element) {
+//    if (!element) return;
 
-   var selector = element.tagName.toLowerCase();
-   if (element.id) {
-      selector += '#' + element.id;
-   } else if (element.className) {
-      selector += '.' + element.className.replace(/\s+/g, '.');
-   }
+//    var selector = element.tagName.toLowerCase();
+//    if (element.id) {
+//       selector += '#' + element.id;
+//    } else if (element.className) {
+//       selector += '.' + element.className.replace(/\s+/g, '.');
+//    }
 
-   return selector;
-}
-document.addEventListener('click', function (event) {
-   var selector = getSelector(event.target);
-   console.log('Element selector:', selector);
-});
+//    return selector;
+// }
+// document.addEventListener('click', function (event) {
+//    var selector = getSelector(event.target);
+//    console.log('Element selector:', selector);
+// });
 
 
 //identify all messages
