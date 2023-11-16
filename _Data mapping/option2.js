@@ -1,6 +1,7 @@
 const collector = document.querySelector('.collector');
 const getPath = document.getElementById('get-path');
 const pathQuery = document.getElementById('path-query');
+const mainData = document.getElementById('mainData');
 
 getPath.addEventListener('click', () => {
    const message = {
@@ -17,5 +18,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
    if (message.name == 'element selector') {
       console.log(message.value);
       pathQuery.innerHTML = message.value;
+      mainData.innerHTML = message.data;
    }
 })

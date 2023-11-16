@@ -20,11 +20,10 @@ function getSelector(element) {
 
    var selector = element.tagName.toLowerCase();
    if (element.id) {
-      selector += '#' + element.id;
+      selector += '[id="' + element.id + '"]';
    } else if (element.className) {
-      selector += '.' + element.className.replace(/\s+/g, ',');
+      selector += '[class="' + element.className.replace(/\s+/g, ',') + '"]';
    }
-
    return selector;
 }
 
@@ -32,9 +31,13 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
    if (message.name == 'get selector') {
       document.addEventListener('click', function (event) {
          var selector = getSelector(event.target);
-         console.log('Element selector:', selector);
-
-         chrome.runtime.sendMessage({ name: 'element selector', value: selector });
+         var parentSelector = getSelector(event.target.parentElement);
+         console.log(selector);
+         console.log(parentSelector);
+         var mainSelector = parentSelector + ' ' + selector;
+         var mainData = document.querySelector(mainSelector).innerText;
+         console.log(mainData);
+         chrome.runtime.sendMessage({ name: 'element selector', value: mainSelector, data: mainData });
       }, { once: true });
    }
    return true; // Recommended to keep the message channel open for sendResponse

@@ -49,3 +49,19 @@ button {
 #fieldPath {
    width: 240px;
 }
+
+.collector {
+   border: 5px solid black;
+   padding: 30px;
+}
+
+.shortInfo {
+   display: flex;
+   gap: 20px
+}
+
+#get-path {
+   padding: 12px 20px;
+   font-size: 20px;
+   font-weight: 600;
+}
