@@ -45,12 +45,11 @@ function newItem() {
          name: 'get selector',
       };
       chrome.tabs.query({}, function (tabs) {
-         const test = tabs.forEach(tab => {
+         tabs.forEach(tab => {
             chrome.tabs.sendMessage(tab.id, message, function (response) {
                if (chrome.runtime.lastError) {
                   console.error(chrome.runtime.lastError);
                } else {
-                  console.log(response);
                   input2.value = response.value;
                   particularData.innerHTML = `<h3> Collected data: </h3>
                   <p>${response.data}</p>`;
@@ -59,6 +58,21 @@ function newItem() {
          });
       });
    });
+
+   exportBtn.addEventListener('click', () => {
+      var sendData = particularData.querySelector('p').innerText;
+      const message = {
+         name: 'show data',
+         data: sendData
+      }
+      chrome.tabs.query({}, function (tabs) {
+         tabs.forEach(tab => {
+            chrome.tabs.sendMessage(tab.id, message)
+            // console.log(message);
+         })
+      })
+   });
+
 
    package.appendChild(label1);
    package.appendChild(input1);
