@@ -7,7 +7,7 @@ var container = document.querySelector('.container');
 //add event listeners to the buttons
 newField.addEventListener('click', () => {
    var newDiv = document.createElement('div');
-   newDiv.innerHTML = fieldHTML;
+   newDiv.appendChild(newItem());
    container.appendChild(newDiv);
 });
 
@@ -21,14 +21,54 @@ dltField.addEventListener('click', () => {
 })
 
 
-//declare the functions
-var fieldHTML =
-   `<div class="fields">
-      <label>Name : </label>
-      <input type="text" id="fieldName">
-      <label>Query Path : </label>
-      <input type="text" id="fieldPath">
-   </div>`;
+function newItem() {
+   const package = document.createElement('div');
+   package.classList.add('fields');
+   var label1 = document.createElement('label');
+   var label2 = document.createElement('label');
+   var input1 = document.createElement('input');
+   var input2 = document.createElement('input');
+   var pathBtn = document.createElement('button');
+   var exportBtn = document.createElement('button');
+   var particularData = document.createElement('div');
+
+
+   label1.innerText = 'Name : ';
+   label2.innerText = 'Query Path : ';
+   input1.id = 'fieldName';
+   input2.id = 'fieldPath';
+   pathBtn.innerText = 'Get Data';
+   exportBtn.innerText = 'Export Data';
+
+   pathBtn.addEventListener('click', () => {
+      const message = {
+         name: 'get selector',
+      };
+      chrome.tabs.query({}, function (tabs) {
+         const test = tabs.forEach(tab => {
+            chrome.tabs.sendMessage(tab.id, message, function (response) {
+               if (chrome.runtime.lastError) {
+                  console.error(chrome.runtime.lastError);
+               } else {
+                  console.log(response);
+                  input2.value = response.value;
+                  particularData.innerHTML = `<h3> Collected data: </h3>
+                  <p>${response.data}</p>`;
+               }
+            });
+         });
+      });
+   });
+
+   package.appendChild(label1);
+   package.appendChild(input1);
+   package.appendChild(label2);
+   package.appendChild(input2);
+   package.appendChild(pathBtn);
+   package.appendChild(exportBtn);
+   package.appendChild(particularData);
+   return package;
+}
 
 
 function saveTheData() {
@@ -49,7 +89,7 @@ function showStoredData() {
       } else {
          result.fieldsData.forEach(val => {
             var newDiv = document.createElement('div');
-            newDiv.innerHTML = fieldHTML;
+            newDiv.appendChild(newItem());
             container.appendChild(newDiv);
             newDiv.querySelector('input[id="fieldName"]').value = val.data;
             newDiv.querySelector('input[id="fieldPath"]').value = val.path;
@@ -58,5 +98,3 @@ function showStoredData() {
    });
 }
 showStoredData();
-
-
