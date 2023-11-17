@@ -29,6 +29,7 @@ function newItem() {
    var input1 = document.createElement('input');
    var input2 = document.createElement('input');
    var pathBtn = document.createElement('button');
+   var exportBtn = document.createElement('button');
    var particularData = document.createElement('div');
 
 
@@ -36,7 +37,8 @@ function newItem() {
    label2.innerText = 'Query Path : ';
    input1.id = 'fieldName';
    input2.id = 'fieldPath';
-   pathBtn.innerText = 'Get Data Path';
+   pathBtn.innerText = 'Get Data';
+   exportBtn.innerText = 'Export Data';
 
    pathBtn.addEventListener('click', () => {
       const message = {
@@ -63,6 +65,7 @@ function newItem() {
    package.appendChild(label2);
    package.appendChild(input2);
    package.appendChild(pathBtn);
+   package.appendChild(exportBtn);
    package.appendChild(particularData);
    return package;
 }
