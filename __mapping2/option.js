@@ -29,8 +29,11 @@ function newItem() {
    var input1 = document.createElement('input');
    var input2 = document.createElement('input');
    var pathBtn = document.createElement('button');
-   var exportBtn = document.createElement('button');
    var particularData = document.createElement('div');
+   var exportData = document.createElement('div');
+   exportData.classList.add('exportData');
+   var exportBtn = document.createElement('button');
+   var exportInput = document.createElement('input');
 
 
    label1.innerText = 'Name : ';
@@ -39,8 +42,23 @@ function newItem() {
    input2.id = 'fieldPath';
    pathBtn.innerText = 'Get Data';
    exportBtn.innerText = 'Export Data';
+   exportInput.id = 'exportAddress';
 
+
+   package.appendChild(label1);
+   package.appendChild(input1);
+   package.appendChild(label2);
+   package.appendChild(input2);
+   package.appendChild(pathBtn);
+   package.appendChild(particularData);
+   package.appendChild(exportData);
+   exportData.appendChild(exportBtn);
+   exportData.appendChild(exportInput);
+
+
+   //add event listener to the get data & path button
    pathBtn.addEventListener('click', () => {
+      //send message to all tabs
       const message = {
          name: 'get selector',
       };
@@ -53,6 +71,7 @@ function newItem() {
                   input2.value = response.value;
                   particularData.innerHTML = `<h3> Collected data: </h3>
                   <p>${response.data}</p>`;
+                  exportData.style.display = 'block';
                }
             });
          });
@@ -65,22 +84,13 @@ function newItem() {
          name: 'show data',
          data: sendData
       }
+      console.log(message);
       chrome.tabs.query({}, function (tabs) {
          tabs.forEach(tab => {
             chrome.tabs.sendMessage(tab.id, message)
-            // console.log(message);
          })
       })
    });
-
-
-   package.appendChild(label1);
-   package.appendChild(input1);
-   package.appendChild(label2);
-   package.appendChild(input2);
-   package.appendChild(pathBtn);
-   package.appendChild(exportBtn);
-   package.appendChild(particularData);
    return package;
 }
 
