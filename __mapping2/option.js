@@ -62,16 +62,21 @@ function newItem() {
       const message = {
          name: 'get selector',
       };
+      let isDataUpdated = false;
       chrome.tabs.query({}, function (tabs) {
          tabs.forEach(tab => {
             chrome.tabs.sendMessage(tab.id, message, function (response) {
                if (chrome.runtime.lastError) {
                   console.error(chrome.runtime.lastError);
                } else {
-                  input2.value = response.value;
-                  particularData.innerHTML = `<h3> Collected data: </h3>
-                  <p>${response.data}</p>`;
-                  exportData.style.display = 'block';
+                  if (!isDataUpdated) {
+                     input2.value = response.value;
+                     particularData.innerHTML = `<h3> Collected data: </h3>
+                        <p>${response.data}</p>`;
+                     exportData.style.display = 'block';
+
+                     isDataUpdated = true;
+                  }
                }
             });
          });
@@ -91,6 +96,8 @@ function newItem() {
          })
       })
    });
+
+
    return package;
 }
 

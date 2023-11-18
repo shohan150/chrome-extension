@@ -39,6 +39,14 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
       }, { once: true });
    }
+   if (message.name == 'show data') {
+      var inputFields = document.querySelectorAll('input');
+      inputFields.forEach(field => {
+         field.addEventListener('click', () => {
+            field.value = message.data;
+         }, { once: true });
+      })
+   }
    return true; // Recommended to keep the message channel open for sendResponse
 });
 

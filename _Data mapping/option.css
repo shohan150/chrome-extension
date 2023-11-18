@@ -41,16 +41,21 @@ button {
 }
 
 #fieldName,
-#fieldPath {
+#fieldPath,
+#exportAddress {
    height: 24px;
    margin-right: 25px;
+   margin-left: 5px;
 }
 
 #fieldPath {
    width: 240px;
 }
 
-.fields button:nth-of-type(2) {
+.exportData {
+   display: none;
+}
+
+.exportData button {
    background-color: rgb(205, 44, 44);
-   margin-left: 20px;
 }
