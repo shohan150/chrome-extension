@@ -33,7 +33,7 @@ function newItem() {
    var exportData = document.createElement('div');
    exportData.classList.add('exportData');
    var exportBtn = document.createElement('button');
-   var exportInput = document.createElement('input');
+   // var exportInput = document.createElement('input');
 
 
    label1.innerText = 'Name : ';
@@ -42,7 +42,7 @@ function newItem() {
    input2.id = 'fieldPath';
    pathBtn.innerText = 'Get Data';
    exportBtn.innerText = 'Export Data';
-   exportInput.id = 'exportAddress';
+   // exportInput.id = 'exportAddress';
 
 
    package.appendChild(label1);
@@ -53,7 +53,7 @@ function newItem() {
    package.appendChild(particularData);
    package.appendChild(exportData);
    exportData.appendChild(exportBtn);
-   exportData.appendChild(exportInput);
+   // exportData.appendChild(exportInput);
 
 
    //add event listener to the get data & path button
