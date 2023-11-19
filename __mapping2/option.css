@@ -42,20 +42,14 @@ button {
 
 #fieldName,
 #fieldPath,
-#exportAddress {
+#destination {
    height: 24px;
    margin-right: 25px;
    margin-left: 5px;
+   width: 140px;
 }
 
-#fieldPath {
+#fieldPath,
+#destination {
    width: 240px;
-}
-
-.exportData {
-   display: none;
-}
-
-.exportData button {
-   background-color: rgb(205, 44, 44);
 }
