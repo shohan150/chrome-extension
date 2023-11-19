@@ -30,24 +30,35 @@ function getSelector(element) {
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
    if (message.name == 'get selector') {
       document.addEventListener('click', function (event) {
-         var selector = getSelector(event.target);
-         var parentSelector = getSelector(event.target.parentElement);
-         var mainSelector = parentSelector + ' ' + selector;
-         var mainData = document.querySelector(mainSelector).innerText;
-
+         const selector = getSelector(event.target);
+         const parentSelector = getSelector(event.target.parentElement);
+         const grandParentSelector = getSelector(event.target.parentElement.parentElement);
+         const mainSelector = grandParentSelector + ' ' + parentSelector + ' ' + selector;
+         const mainData = document.querySelector(mainSelector).innerHTML;
          sendResponse({ name: 'element selector', value: mainSelector, data: mainData });
-
       }, { once: true });
    }
+   return true; // Recommended to keep the message channel open for sendResponse
+});
+
+chrome.runtime.onMessage.addListener(function (message, sender, formResponse) {
    if (message.name == 'show data') {
-      var inputFields = document.querySelectorAll('input');
+      const inputFields = document.querySelectorAll('input');
       inputFields.forEach(field => {
-         field.addEventListener('click', () => {
+         field.addEventListener('click', function (event) {
             field.value = message.data;
+            const selector = getSelector(event.target);
+            const parentSelector = getSelector(event.target.parentElement);
+            const mainSelector = parentSelector + ' ' + selector;
+
+            const msg = {
+               name: 'form selector',
+               value: mainSelector
+            };
+            console.log(message, msg);
+            formResponse({ name: 'form selector', value: mainSelector });
          }, { once: true });
       })
    }
    return true; // Recommended to keep the message channel open for sendResponse
 });
-
-

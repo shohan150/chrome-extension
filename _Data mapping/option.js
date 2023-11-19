@@ -26,38 +26,32 @@ function newItem() {
    package.classList.add('fields');
    var label1 = document.createElement('label');
    var label2 = document.createElement('label');
+   var label3 = document.createElement('label');
    var input1 = document.createElement('input');
    var input2 = document.createElement('input');
-   var pathBtn = document.createElement('button');
+   var input3 = document.createElement('input');
    var particularData = document.createElement('div');
-   var exportData = document.createElement('div');
-   exportData.classList.add('exportData');
-   var exportBtn = document.createElement('button');
-   // var exportInput = document.createElement('input');
 
 
    label1.innerText = 'Name : ';
-   label2.innerText = 'Query Path : ';
+   label2.innerText = 'Source : ';
+   label3.innerText = 'Destination : ';
    input1.id = 'fieldName';
    input2.id = 'fieldPath';
-   pathBtn.innerText = 'Get Data';
-   exportBtn.innerText = 'Export Data';
-   // exportInput.id = 'exportAddress';
+   input3.id = 'destination';
 
 
    package.appendChild(label1);
    package.appendChild(input1);
    package.appendChild(label2);
    package.appendChild(input2);
-   package.appendChild(pathBtn);
+   package.appendChild(label3);
+   package.appendChild(input3);
    package.appendChild(particularData);
-   package.appendChild(exportData);
-   exportData.appendChild(exportBtn);
-   // exportData.appendChild(exportInput);
 
 
    //add event listener to the get data & path button
-   pathBtn.addEventListener('click', () => {
+   input2.addEventListener('click', () => {
       //send message to all tabs
       const message = {
          name: 'get selector',
@@ -69,11 +63,10 @@ function newItem() {
                if (chrome.runtime.lastError) {
                   console.error(chrome.runtime.lastError);
                } else {
+                  console.log(isDataUpdated);
                   if (!isDataUpdated) {
                      input2.value = response.value;
-                     particularData.innerHTML = `<h3> Collected data: </h3>
-                        <p>${response.data}</p>`;
-                     exportData.style.display = 'block';
+                     particularData.innerHTML = `<p>${response.data}</p>`;
 
                      isDataUpdated = true;
                   }
@@ -83,20 +76,24 @@ function newItem() {
       });
    });
 
-   exportBtn.addEventListener('click', () => {
-      var sendData = particularData.querySelector('p').innerText;
+   input3.addEventListener('click', (event) => {
+      var sendData = particularData.querySelector('div p').innerText;
       const message = {
          name: 'show data',
          data: sendData
       }
-      console.log(message);
       chrome.tabs.query({}, function (tabs) {
          tabs.forEach(tab => {
-            chrome.tabs.sendMessage(tab.id, message)
-         })
+            chrome.tabs.sendMessage(tab.id, message, function (response) {
+               if (chrome.runtime.lastError) {
+                  console.error(chrome.runtime.lastError);
+               } else {
+                  input3.value = response.value;
+               }
+            })
+         });
       })
-   });
-
+   })
 
    return package;
 }
