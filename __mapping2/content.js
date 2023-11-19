@@ -30,32 +30,35 @@ function getSelector(element) {
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
    if (message.name == 'get selector') {
       document.addEventListener('click', function (event) {
-         var selector = getSelector(event.target);
-         var parentSelector = getSelector(event.target.parentElement);
-         var grandParentSelector = getSelector(event.target.parentElement.parentElement);
-         var mainSelector = grandParentSelector + ' ' + parentSelector + ' ' + selector;
-         var mainData = document.querySelector(mainSelector).innerHTML;
+         const selector = getSelector(event.target);
+         const parentSelector = getSelector(event.target.parentElement);
+         const grandParentSelector = getSelector(event.target.parentElement.parentElement);
+         const mainSelector = grandParentSelector + ' ' + parentSelector + ' ' + selector;
+         const mainData = document.querySelector(mainSelector).innerHTML;
          sendResponse({ name: 'element selector', value: mainSelector, data: mainData });
       }, { once: true });
    }
+   return true; // Recommended to keep the message channel open for sendResponse
+});
+
+chrome.runtime.onMessage.addListener(function (message, sender, formResponse) {
    if (message.name == 'show data') {
-      var inputFields = document.querySelectorAll('input');
-      console.log(inputFields);
-      console.log(message.data);
+      const inputFields = document.querySelectorAll('input');
       inputFields.forEach(field => {
          field.addEventListener('click', function (event) {
             field.value = message.data;
-            console.log(message.data);
-            var selector = getSelector(event.target);
-            var parentSelector = getSelector(event.target.parentElement);
-            var mainSelector = parentSelector + ' ' + selector;
+            const selector = getSelector(event.target);
+            const parentSelector = getSelector(event.target.parentElement);
+            const mainSelector = parentSelector + ' ' + selector;
 
-            sendResponse({ name: 'form selector', value: mainSelector });
-
+            const msg = {
+               name: 'form selector',
+               value: mainSelector
+            };
+            console.log(message, msg);
+            formResponse({ name: 'form selector', value: mainSelector });
          }, { once: true });
       })
    }
    return true; // Recommended to keep the message channel open for sendResponse
 });
-
-

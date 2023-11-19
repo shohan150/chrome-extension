@@ -63,10 +63,10 @@ function newItem() {
                if (chrome.runtime.lastError) {
                   console.error(chrome.runtime.lastError);
                } else {
+                  console.log(isDataUpdated);
                   if (!isDataUpdated) {
                      input2.value = response.value;
                      particularData.innerHTML = `<p>${response.data}</p>`;
-                     exportData.style.display = 'block';
 
                      isDataUpdated = true;
                   }
@@ -76,8 +76,8 @@ function newItem() {
       });
    });
 
-   input3.addEventListener('click', () => {
-      var sendData = particularData.querySelector('p').innerText;
+   input3.addEventListener('click', (event) => {
+      var sendData = particularData.querySelector('div p').innerText;
       const message = {
          name: 'show data',
          data: sendData
@@ -91,10 +91,9 @@ function newItem() {
                   input3.value = response.value;
                }
             })
-         })
+         });
       })
-   });
-
+   })
 
    return package;
 }
