@@ -105,7 +105,8 @@ function saveTheData() {
    particularField.forEach(field => {
       const dataName = field.querySelector('input[id="fieldName"]').value;
       const dataPath = field.querySelector('input[id="fieldPath"]').value;
-      fieldsData.push({ data: dataName, path: dataPath });
+      const destination = field.querySelector('input[id="destination"]').value;
+      fieldsData.push({ data: dataName, path: dataPath, dest: destination });
    })
    chrome.storage.local.set({ fieldsData });
 }
@@ -121,6 +122,7 @@ function showStoredData() {
             container.appendChild(newDiv);
             newDiv.querySelector('input[id="fieldName"]').value = val.data;
             newDiv.querySelector('input[id="fieldPath"]').value = val.path;
+            newDiv.querySelector('input[id="destination"]').value = val.dest;
          });
       }
    });

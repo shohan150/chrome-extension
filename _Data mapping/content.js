@@ -55,7 +55,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, formResponse) {
                name: 'form selector',
                value: mainSelector
             };
-            console.log(message, msg);
             formResponse({ name: 'form selector', value: mainSelector });
          }, { once: true });
       })
