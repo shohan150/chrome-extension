@@ -22,7 +22,7 @@ function getSelector(element) {
    if (element.id) {
       selector += '[id="' + element.id + '"]';
    } else if (element.className) {
-      selector += '[class="' + element.className.replace(/\s+/g, ',') + '"]';
+      selector += '[class="' + element.className.replace(/\s+/g, ' ') + '"]';
    }
    return selector;
 }
@@ -33,10 +33,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
          var selector = getSelector(event.target);
          var parentSelector = getSelector(event.target.parentElement);
          var mainSelector = parentSelector + ' ' + selector;
-         var mainData = document.querySelector(mainSelector).innerText;
-
+         var mainData = document.querySelector(mainSelector).innerHTML;
          sendResponse({ name: 'element selector', value: mainSelector, data: mainData });
-
       }, { once: true });
    }
    if (message.name == 'show data') {

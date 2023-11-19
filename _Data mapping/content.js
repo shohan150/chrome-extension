@@ -22,7 +22,7 @@ function getSelector(element) {
    if (element.id) {
       selector += '[id="' + element.id + '"]';
    } else if (element.className) {
-      selector += '[class="' + element.className.replace(/\s+/g, ',') + '"]';
+      selector += '[class="' + element.className.replace(/\s+/g, ' ') + '"]';
    }
    return selector;
 }
