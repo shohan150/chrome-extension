@@ -82,19 +82,13 @@ function newItem() {
          name: 'show data',
          data: sendData
       }
-      console.log(message);
-      let isDataUpdated = false;
       chrome.tabs.query({}, function (tabs) {
          tabs.forEach(tab => {
             chrome.tabs.sendMessage(tab.id, message, function (response) {
                if (chrome.runtime.lastError) {
                   console.error(chrome.runtime.lastError);
                } else {
-                  if (!isDataUpdated) {
-                     input3.value = response.value;
-
-                     isDataUpdated = true;
-                  }
+                  input3.value = response.value;
                }
             })
          })

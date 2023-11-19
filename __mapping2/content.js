@@ -40,9 +40,12 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
    }
    if (message.name == 'show data') {
       var inputFields = document.querySelectorAll('input');
+      console.log(inputFields);
+      console.log(message.data);
       inputFields.forEach(field => {
          field.addEventListener('click', function (event) {
             field.value = message.data;
+            console.log(message.data);
             var selector = getSelector(event.target);
             var parentSelector = getSelector(event.target.parentElement);
             var mainSelector = parentSelector + ' ' + selector;
