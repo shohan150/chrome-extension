@@ -32,7 +32,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       document.addEventListener('click', function (event) {
          var selector = getSelector(event.target);
          var parentSelector = getSelector(event.target.parentElement);
-         var mainSelector = parentSelector + ' ' + selector;
+         var grandParentSelector = getSelector(event.target.parentElement.parentElement);
+         var mainSelector = grandParentSelector + ' ' + parentSelector + ' ' + selector;
          var mainData = document.querySelector(mainSelector).innerHTML;
          sendResponse({ name: 'element selector', value: mainSelector, data: mainData });
       }, { once: true });
@@ -40,8 +41,14 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
    if (message.name == 'show data') {
       var inputFields = document.querySelectorAll('input');
       inputFields.forEach(field => {
-         field.addEventListener('click', () => {
+         field.addEventListener('click', function (event) {
             field.value = message.data;
+            var selector = getSelector(event.target);
+            var parentSelector = getSelector(event.target.parentElement);
+            var mainSelector = parentSelector + ' ' + selector;
+
+            sendResponse({ name: 'form selector', value: mainSelector });
+
          }, { once: true });
       })
    }

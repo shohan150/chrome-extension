@@ -65,8 +65,7 @@ function newItem() {
                } else {
                   if (!isDataUpdated) {
                      input2.value = response.value;
-                     particularData.innerHTML = `<h3> Collected data: </h3>
-                        <p>${response.data}</p>`;
+                     particularData.innerHTML = `<p>${response.data}</p>`;
                      exportData.style.display = 'block';
 
                      isDataUpdated = true;
@@ -84,9 +83,20 @@ function newItem() {
          data: sendData
       }
       console.log(message);
+      let isDataUpdated = false;
       chrome.tabs.query({}, function (tabs) {
          tabs.forEach(tab => {
-            chrome.tabs.sendMessage(tab.id, message)
+            chrome.tabs.sendMessage(tab.id, message, function (response) {
+               if (chrome.runtime.lastError) {
+                  console.error(chrome.runtime.lastError);
+               } else {
+                  if (!isDataUpdated) {
+                     input3.value = response.value;
+
+                     isDataUpdated = true;
+                  }
+               }
+            })
          })
       })
    });
