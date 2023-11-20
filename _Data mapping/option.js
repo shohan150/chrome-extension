@@ -30,6 +30,7 @@ function newItem() {
    var input1 = document.createElement('input');
    var input2 = document.createElement('input');
    var input3 = document.createElement('input');
+   var dltIcon = document.createElement('img');
    var particularData = document.createElement('div');
 
 
@@ -39,6 +40,7 @@ function newItem() {
    input1.id = 'fieldName';
    input2.id = 'fieldPath';
    input3.id = 'destination';
+   dltIcon.src = 'img/delete.png';
 
 
    package.appendChild(label1);
@@ -47,6 +49,7 @@ function newItem() {
    package.appendChild(input2);
    package.appendChild(label3);
    package.appendChild(input3);
+   package.appendChild(dltIcon);
    package.appendChild(particularData);
 
 
@@ -95,13 +98,16 @@ function newItem() {
       })
    })
 
+   dltIcon.addEventListener('click', (event) => {
+      event.target.parentElement.remove();
+   });
    return package;
 }
 
 
 function saveTheData() {
    var particularField = document.querySelectorAll('.container .fields');
-   var fieldsData = [];
+   let fieldsData = [];
    particularField.forEach(field => {
       const dataName = field.querySelector('input[id="fieldName"]').value;
       const dataPath = field.querySelector('input[id="fieldPath"]').value;
@@ -109,7 +115,11 @@ function saveTheData() {
       fieldsData.push({ data: dataName, path: dataPath, dest: destination });
    })
    chrome.storage.local.set({ fieldsData });
+
+   console.log(fieldsData);
 }
+
+
 
 function showStoredData() {
    chrome.storage.local.get(['fieldsData'], function (result) {
