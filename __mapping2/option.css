@@ -72,3 +72,22 @@ button {
    right: 20px;
    top: 35%;
 }
+
+.savedData {
+   margin-top: 30px;
+}
+
+.collapsable {
+   padding: 10px;
+   margin: 15px 0px;
+   border-radius: 15px;
+   box-shadow: 5px 3px 20px -5px rgba(92, 85, 85, 0.75);
+   position: relative;
+}
+
+#collImg {
+   width: 25px;
+   position: absolute;
+   right: 20px;
+   top: 20px;
+}
