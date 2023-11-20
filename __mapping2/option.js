@@ -107,7 +107,7 @@ function newItem() {
 
 function saveTheData() {
    var particularField = document.querySelectorAll('.container .fields');
-   var fieldsData = [];
+   let fieldsData = [];
    particularField.forEach(field => {
       const dataName = field.querySelector('input[id="fieldName"]').value;
       const dataPath = field.querySelector('input[id="fieldPath"]').value;
@@ -115,7 +115,11 @@ function saveTheData() {
       fieldsData.push({ data: dataName, path: dataPath, dest: destination });
    })
    chrome.storage.local.set({ fieldsData });
+
+   console.log(fieldsData);
 }
+
+
 
 function showStoredData() {
    chrome.storage.local.get(['fieldsData'], function (result) {
