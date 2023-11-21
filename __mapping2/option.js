@@ -135,7 +135,6 @@ function saveTheData() {
    });
 }
 
-
 function showStoredData() {
    chrome.storage.local.get(['fieldsData'], function (result) {
       if (!result.fieldsData) {
@@ -171,14 +170,16 @@ function storedSection(storedData, counter) {
    collapsable.appendChild(collapsableHeading);
    collapsable.appendChild(collapsableImage);
    collapsable.appendChild(dataDiv);
+   collapsable.appendChild(updateBtn);
+   collapsable.appendChild(deleteBtn);
    savedData.appendChild(collapsable);
 
    collapsable.addEventListener('click', () => {
       singleStoredData(storedData[counter], dataDiv);
-      collapsable.appendChild(updateBtn);
-      collapsable.appendChild(deleteBtn);
       collapsableImage.style.transform = 'rotate(180deg)';
-   }, { once: true });
+      //class toggle on dataDiv, dltBtn,updtBtn
+      //fix the repetative issue
+   });
 
    updateBtn.addEventListener('click', (event) => {
       updateSet(event, counter);
@@ -191,6 +192,7 @@ function storedSection(storedData, counter) {
 
 function singleStoredData(val, dataDiv) {
    let counter = 0;
+   // dataDiv.innerHTML = '';
    val.forEach(value => {
       var newDiv = document.createElement('div');
       newDiv.appendChild(newItem());
@@ -234,3 +236,8 @@ function deleteSet(event, counter) {
 }
 
 showStoredData();
+
+
+//toggle the saved fields
+//create field button
+//use
