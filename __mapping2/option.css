@@ -91,13 +91,37 @@ button {
 }
 
 #collImg {
-   width: 25px;
+   width: 32px;
    position: absolute;
    right: 20px;
    top: 20px;
+   transition-duration: 0.4s;
 }
 
-.collapsable #dlt {
+.dataDiv {
+   margin-top: 15px;
+}
+
+#update {
+   background-color: green;
+   margin-left: 20px;
+}
+
+#dlt {
    background-color: #ff0000;
    margin-left: 20px;
+}
+
+#use {
+   background-color: #cd1dcd;
+   margin-left: 20px;
+   font-weight: 600;
+}
+
+.hideElement {
+   display: none;
+}
+
+.rotateIcon {
+   transform: rotate(180deg);
 }

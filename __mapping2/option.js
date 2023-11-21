@@ -1,13 +1,12 @@
-var newField = document.getElementById('addField');
-var saveField = document.getElementById('saveField');
-var dltField = document.getElementById('dltField');
-var container = document.querySelector('.container');
-var savedData = document.querySelector('.savedData');
+const newField = document.getElementById('addField');
+const saveField = document.getElementById('saveField');
+const dltField = document.getElementById('dltField');
+const container = document.querySelector('.container');
+const savedData = document.querySelector('.savedData');
 
 
-//add event listeners to the buttons
 newField.addEventListener('click', () => {
-   var newDiv = document.createElement('div');
+   let newDiv = document.createElement('div');
    newDiv.appendChild(newItem());
    container.appendChild(newDiv);
 });
@@ -20,7 +19,6 @@ saveField.addEventListener('click', () => {
       container.innerHTML = '';
    }, 10);
 });
-
 
 dltField.addEventListener('click', () => {
    chrome.storage.local.remove('fieldsData');
@@ -154,8 +152,11 @@ function storedSection(storedData, counter) {
    const collapsableHeading = document.createElement('h3');
    const collapsableImage = document.createElement('img');
    const dataDiv = document.createElement('div');
+   const buttonDiv = document.createElement('div');
+   const addNew = document.createElement('button');
    const updateBtn = document.createElement('button');
    const deleteBtn = document.createElement('button');
+   const use = document.createElement('button');
 
    collapsable.className = 'collapsable';
    dataDiv.className = 'dataDiv';
@@ -166,33 +167,53 @@ function storedSection(storedData, counter) {
    updateBtn.id = 'update';
    deleteBtn.innerText = 'Delete this set';
    deleteBtn.id = 'dlt';
+   addNew.innerText = 'Add new field';
+   addNew.id = 'add';
+   use.innerText = 'Use';
+   use.id = 'use';
+   buttonDiv.classList.add('buttonDiv');
+   // dataDiv.classList.add('hideElement');
+   // buttonDiv.classList.add('hideElement');
 
    collapsable.appendChild(collapsableHeading);
    collapsable.appendChild(collapsableImage);
    collapsable.appendChild(dataDiv);
-   collapsable.appendChild(updateBtn);
-   collapsable.appendChild(deleteBtn);
+   buttonDiv.appendChild(addNew);
+   buttonDiv.appendChild(updateBtn);
+   buttonDiv.appendChild(deleteBtn);
+   buttonDiv.appendChild(use);
+   collapsable.appendChild(buttonDiv);
    savedData.appendChild(collapsable);
 
-   collapsable.addEventListener('click', () => {
-      singleStoredData(storedData[counter], dataDiv);
-      collapsableImage.style.transform = 'rotate(180deg)';
-      //class toggle on dataDiv, dltBtn,updtBtn
-      //fix the repetative issue
+   collapsableImage.addEventListener('click', () => {
+      // singleStoredData(storedData[counter], dataDiv);
+      // dataDiv.classList.toggle('hideElement');
+      // buttonDiv.classList.toggle('hideElement');
+      // collapsableImage.classList.toggle('rotateIcon');
    });
-
+   singleStoredData(storedData[counter], dataDiv);
    updateBtn.addEventListener('click', (event) => {
       updateSet(event, counter);
-   })
+   });
 
    deleteBtn.addEventListener('click', (event) => {
       deleteSet(event, counter);
+   });
+
+   addNew.addEventListener('click', (event) => {
+      let newDiv = document.createElement('div');
+      newDiv.appendChild(newItem());
+      dataDiv.appendChild(newDiv);
+   });
+
+   use.addEventListener('click', () => {
+      apply();
    })
 }
 
 function singleStoredData(val, dataDiv) {
    let counter = 0;
-   // dataDiv.innerHTML = '';
+   dataDiv.innerHTML = '';
    val.forEach(value => {
       var newDiv = document.createElement('div');
       newDiv.appendChild(newItem());
@@ -205,7 +226,7 @@ function singleStoredData(val, dataDiv) {
 }
 
 function updateSet(event, counter) {
-   let storedField = event.target.parentElement.querySelectorAll('.dataDiv .fields');
+   let storedField = event.target.parentElement.parentElement.querySelectorAll('.dataDiv .fields');
    let newData = [];
 
    storedField.forEach(field => {
@@ -232,8 +253,13 @@ function deleteSet(event, counter) {
       chrome.storage.local.set({ 'fieldsData': storedData });
    });
 
-   event.target.parentElement.remove();
+   event.target.parentElement.parentElement.remove();
 }
+
+function apply() {
+   console.log('hi');
+}
+
 
 showStoredData();
 
