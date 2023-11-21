@@ -96,3 +96,8 @@ button {
    right: 20px;
    top: 20px;
 }
+
+.collapsable #dlt {
+   background-color: #ff0000;
+   margin-left: 20px;
+}

@@ -141,7 +141,7 @@ function showStoredData() {
       if (!result.fieldsData) {
          savedData.innerHTML = '';
       } else {
-         let counter = 1;
+         let counter = 0;
          result.fieldsData.forEach(val => {
             storedSection(result.fieldsData, counter);
             counter++;
@@ -156,52 +156,40 @@ function storedSection(storedData, counter) {
    const collapsableImage = document.createElement('img');
    const dataDiv = document.createElement('div');
    const updateBtn = document.createElement('button');
+   const deleteBtn = document.createElement('button');
 
    collapsable.className = 'collapsable';
    dataDiv.className = 'dataDiv';
-   collapsableHeading.innerText = 'Saved Item ' + counter;
+   collapsableHeading.innerText = 'Saved Item ' + (counter + 1);
    collapsableImage.src = 'img/arrow.png';
    collapsableImage.id = 'collImg';
    updateBtn.innerText = 'Update';
    updateBtn.id = 'update';
+   deleteBtn.innerText = 'Delete this set';
+   deleteBtn.id = 'dlt';
 
    collapsable.appendChild(collapsableHeading);
    collapsable.appendChild(collapsableImage);
    collapsable.appendChild(dataDiv);
-   collapsable.appendChild(updateBtn);
    savedData.appendChild(collapsable);
 
    collapsable.addEventListener('click', () => {
+      singleStoredData(storedData[counter], dataDiv);
+      collapsable.appendChild(updateBtn);
+      collapsable.appendChild(deleteBtn);
       collapsableImage.style.transform = 'rotate(180deg)';
-
-   })
-   singleStoredData(storedData[counter - 1], dataDiv);
-
+   }, { once: true });
 
    updateBtn.addEventListener('click', (event) => {
+      updateSet(event, counter);
+   })
 
-      let storedField = event.target.parentElement.querySelectorAll('.dataDiv .fields');
-      let newData = [];
-      storedField.forEach(field => {
-         const dataName = field.querySelector('input[id="fieldName"]').value;
-         const dataPath = field.querySelector('input[id="fieldPath"]').value;
-         const destination = field.querySelector('input[id="destination"]').value;
-         singularData = { data: dataName, path: dataPath, dest: destination };
-         newData.push(singularData);
-
-         console.log(singularData);
-      });
-      console.log(newData);
-
-      //work to be continied from here
-
-      // chrome.storage.local.set({ fieldsData[counter - 1]: newData });
-
+   deleteBtn.addEventListener('click', (event) => {
+      deleteSet(event, counter);
    })
 }
 
 function singleStoredData(val, dataDiv) {
-   // console.log(val);
    let counter = 0;
    val.forEach(value => {
       var newDiv = document.createElement('div');
@@ -213,4 +201,36 @@ function singleStoredData(val, dataDiv) {
       counter++;
    })
 }
+
+function updateSet(event, counter) {
+   let storedField = event.target.parentElement.querySelectorAll('.dataDiv .fields');
+   let newData = [];
+
+   storedField.forEach(field => {
+      const dataName = field.querySelector('input[id="fieldName"]').value;
+      const dataPath = field.querySelector('input[id="fieldPath"]').value;
+      const destination = field.querySelector('input[id="destination"]').value;
+      singularData = { data: dataName, path: dataPath, dest: destination };
+      newData.push(singularData);
+   });
+
+
+   chrome.storage.local.get('fieldsData', function (result) {
+      const retrieveStoredData = result.fieldsData || [];
+      retrieveStoredData[counter] = newData;
+      chrome.storage.local.set({ 'fieldsData': retrieveStoredData });
+   });
+}
+
+function deleteSet(event, counter) {
+   chrome.storage.local.get('fieldsData', function (result) {
+      const storedData = result.fieldsData || [];
+      storedData.splice(counter, 1);
+
+      chrome.storage.local.set({ 'fieldsData': storedData });
+   });
+
+   event.target.parentElement.remove();
+}
+
 showStoredData();
