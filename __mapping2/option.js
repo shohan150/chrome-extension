@@ -73,7 +73,6 @@ function newItem() {
                if (chrome.runtime.lastError) {
                   console.error(chrome.runtime.lastError);
                } else {
-                  console.log(isDataUpdated);
                   if (!isDataUpdated) {
                      input2.value = response.value;
                      particularData.innerHTML = `<p>${response.data}</p>`;
@@ -121,14 +120,18 @@ function saveTheData() {
          const dataName = field.querySelector('input[id="fieldName"]').value;
          const dataPath = field.querySelector('input[id="fieldPath"]').value;
          const destination = field.querySelector('input[id="destination"]').value;
-         singularData = { data: dataName, path: dataPath, dest: destination };
-         newData.push(singularData);
+         if (dataName.trim() || dataPath.trim() || destination.trim()) {
+            singularData = { data: dataName, path: dataPath, dest: destination };
+            newData.push(singularData);
+         } else {
+            console.error('You have entered an empty field');
+         }
+
       });
-
-      fieldsData.push(newData);
-
+      if (newData.length) {
+         fieldsData.push(newData);
+      }
       chrome.storage.local.set({ fieldsData });
-      console.log(fieldsData);
    });
 }
 
@@ -140,39 +143,65 @@ function showStoredData() {
       } else {
          let counter = 1;
          result.fieldsData.forEach(val => {
-            storedSection(val, counter);
+            storedSection(result.fieldsData, counter);
             counter++;
          });
       }
    });
 }
 
-function storedSection(val, counter) {
+function storedSection(storedData, counter) {
    const collapsable = document.createElement('div');
    const collapsableHeading = document.createElement('h3');
    const collapsableImage = document.createElement('img');
    const dataDiv = document.createElement('div');
+   const updateBtn = document.createElement('button');
 
    collapsable.className = 'collapsable';
    dataDiv.className = 'dataDiv';
    collapsableHeading.innerText = 'Saved Item ' + counter;
    collapsableImage.src = 'img/arrow.png';
    collapsableImage.id = 'collImg';
+   updateBtn.innerText = 'Update';
+   updateBtn.id = 'update';
 
    collapsable.appendChild(collapsableHeading);
    collapsable.appendChild(collapsableImage);
    collapsable.appendChild(dataDiv);
+   collapsable.appendChild(updateBtn);
    savedData.appendChild(collapsable);
 
    collapsable.addEventListener('click', () => {
       collapsableImage.style.transform = 'rotate(180deg)';
 
    })
-   singleStoredData(val, dataDiv);
+   singleStoredData(storedData[counter - 1], dataDiv);
+
+
+   updateBtn.addEventListener('click', (event) => {
+
+      let storedField = event.target.parentElement.querySelectorAll('.dataDiv .fields');
+      let newData = [];
+      storedField.forEach(field => {
+         const dataName = field.querySelector('input[id="fieldName"]').value;
+         const dataPath = field.querySelector('input[id="fieldPath"]').value;
+         const destination = field.querySelector('input[id="destination"]').value;
+         singularData = { data: dataName, path: dataPath, dest: destination };
+         newData.push(singularData);
+
+         console.log(singularData);
+      });
+      console.log(newData);
+
+      //work to be continied from here
+
+      // chrome.storage.local.set({ fieldsData[counter - 1]: newData });
+
+   })
 }
 
 function singleStoredData(val, dataDiv) {
-   console.log(val);
+   // console.log(val);
    let counter = 0;
    val.forEach(value => {
       var newDiv = document.createElement('div');

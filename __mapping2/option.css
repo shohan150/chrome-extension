@@ -78,11 +78,16 @@ button {
 }
 
 .collapsable {
-   padding: 10px;
+   padding: 15px;
    margin: 15px 0px;
    border-radius: 15px;
    box-shadow: 5px 3px 20px -5px rgba(92, 85, 85, 0.75);
    position: relative;
+}
+
+.collapsable button {
+   padding: 8px 25px;
+   margin: 10px 0px;
 }
 
 #collImg {
