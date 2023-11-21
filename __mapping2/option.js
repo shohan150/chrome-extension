@@ -31,14 +31,14 @@ dltField.addEventListener('click', () => {
 function newItem() {
    const package = document.createElement('div');
    package.classList.add('fields');
-   var label1 = document.createElement('label');
-   var label2 = document.createElement('label');
-   var label3 = document.createElement('label');
-   var input1 = document.createElement('input');
-   var input2 = document.createElement('input');
-   var input3 = document.createElement('input');
-   var dltIcon = document.createElement('img');
-   var particularData = document.createElement('div');
+   const label1 = document.createElement('label');
+   const label2 = document.createElement('label');
+   const label3 = document.createElement('label');
+   const input1 = document.createElement('input');
+   const input2 = document.createElement('input');
+   const input3 = document.createElement('input');
+   const dltIcon = document.createElement('img');
+   const particularData = document.createElement('div');
 
 
    label1.innerText = 'Name : ';
@@ -86,7 +86,7 @@ function newItem() {
    });
 
    input3.addEventListener('click', (event) => {
-      var sendData = particularData.querySelector('div p').innerText;
+      let sendData = particularData.querySelector('div p').innerText;
       const message = {
          name: 'show data',
          data: sendData
@@ -115,7 +115,7 @@ function saveTheData() {
       let fieldsData = result.fieldsData || [];
 
       let newData = [];
-      var particularField = document.querySelectorAll('.container .fields');
+      let particularField = document.querySelectorAll('.container .fields');
       particularField.forEach(field => {
          const dataName = field.querySelector('input[id="fieldName"]').value;
          const dataPath = field.querySelector('input[id="fieldPath"]').value;
