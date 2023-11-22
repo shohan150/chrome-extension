@@ -124,11 +124,12 @@ function saveTheData() {
          } else {
             console.error('You have entered an empty field');
          }
-
       });
+
       if (newData.length) {
          fieldsData.push(newData);
       }
+
       chrome.storage.local.set({ fieldsData });
    });
 }
@@ -206,8 +207,8 @@ function storedSection(storedData, counter) {
       dataDiv.appendChild(newDiv);
    });
 
-   use.addEventListener('click', () => {
-      apply();
+   use.addEventListener('click', (e) => {
+      apply(e);
    })
 }
 
@@ -233,8 +234,12 @@ function updateSet(event, counter) {
       const dataName = field.querySelector('input[id="fieldName"]').value;
       const dataPath = field.querySelector('input[id="fieldPath"]').value;
       const destination = field.querySelector('input[id="destination"]').value;
-      singularData = { data: dataName, path: dataPath, dest: destination };
-      newData.push(singularData);
+      if (dataName.trim() || dataPath.trim() || destination.trim()) {
+         singularData = { data: dataName, path: dataPath, dest: destination };
+         newData.push(singularData);
+      } else {
+         console.error('Empty field detected');
+      }
    });
 
 
@@ -256,8 +261,26 @@ function deleteSet(event, counter) {
    event.target.parentElement.parentElement.remove();
 }
 
-function apply() {
-   console.log('hi');
+function apply(event) {
+   let collection = event.target.parentElement.parentElement.querySelectorAll('.fields');
+   let collectData = [];
+   collection.forEach(element => {
+      const dataName = element.querySelector('input[id="fieldName"]').value;
+      const dataPath = element.querySelector('input[id="fieldPath"]').value;
+      const destination = element.querySelector('input[id="destination"]').value;
+
+      let singularData = { data: dataName, path: dataPath, dest: destination };
+      console.log(singularData);
+      collectData.push(singularData);
+   });
+   console.log(collectData);
+
+   //copy the data in a variable
+   //msg 1 goes to content.js with sourcePath and brings the actual data back
+   //--let the data pass that has all fields filled up. 
+   //--limitation : not tab exclusive
+   //msg 2 goes to content.js with the actual data to the destination path
+   //--limitation : fills up other input fields with same destination address as well.
 }
 
 
