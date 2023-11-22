@@ -28,36 +28,70 @@ function getSelector(element) {
 }
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-   if (message.name == 'get selector') {
-      document.addEventListener('click', function (event) {
-         const selector = getSelector(event.target);
-         const parentSelector = getSelector(event.target.parentElement);
-         const grandParentSelector = getSelector(event.target.parentElement.parentElement);
-         const mainSelector = grandParentSelector + ' ' + parentSelector + ' ' + selector;
-         const mainData = document.querySelector(mainSelector).innerHTML;
-         sendResponse({ name: 'element selector', value: mainSelector, data: mainData });
-      }, { once: true });
-   }
-   return true; // Recommended to keep the message channel open for sendResponse
-});
-
-chrome.runtime.onMessage.addListener(function (message, sender, formResponse) {
-   if (message.name == 'show data') {
-      const inputFields = document.querySelectorAll('input');
-      inputFields.forEach(field => {
-         field.addEventListener('click', function (event) {
-            field.value = message.data;
+   switch (message.name) {
+      case 'get selector':
+         document.addEventListener('click', function (event) {
             const selector = getSelector(event.target);
             const parentSelector = getSelector(event.target.parentElement);
-            const mainSelector = parentSelector + ' ' + selector;
-
-            const msg = {
-               name: 'form selector',
-               value: mainSelector
-            };
-            formResponse({ name: 'form selector', value: mainSelector });
+            const grandParentSelector = getSelector(event.target.parentElement.parentElement);
+            const mainSelector = grandParentSelector + ' ' + parentSelector + ' ' + selector;
+            const mainData = document.querySelector(mainSelector).innerHTML;
+            sendResponse({ name: 'element selector', value: mainSelector, data: mainData });
          }, { once: true });
-      })
+
+         break;
+
+      case 'show data':
+         const inputFields = document.querySelectorAll('input');
+         inputFields.forEach(field => {
+            field.addEventListener('click', function (event) {
+               field.value = message.data;
+               const selector = getSelector(event.target);
+               const parentSelector = getSelector(event.target.parentElement);
+               const mainSelector = parentSelector + ' ' + selector;
+
+               const msg = {
+                  name: 'form selector',
+                  value: mainSelector
+               };
+               sendResponse({ name: 'form selector', value: mainSelector });
+            }, { once: true });
+         })
+
+         break;
+
+      case 'request data':
+         message.data.forEach(query => {
+            const collectData = document.querySelector(query.path).innerHTML;
+            console.log(collectData);
+            sendResponse({ name: 'responce to request', value: collectData });
+         })
+         break;
+
    }
    return true; // Recommended to keep the message channel open for sendResponse
 });
+
+
+
+//the current code format was creating a problme bef0re. when collected data in transferred to a input filed of a form, other all data vanished from the options page. So, i separeated the two messages. But now, i am not noticing the problem. so, keeping this commented.
+// chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+//    if (message.name == 'show data') {
+//       const inputFields = document.querySelectorAll('input');
+//       inputFields.forEach(field => {
+//          field.addEventListener('click', function (event) {
+//             field.value = message.data;
+//             const selector = getSelector(event.target);
+//             const parentSelector = getSelector(event.target.parentElement);
+//             const mainSelector = parentSelector + ' ' + selector;
+
+//             const msg = {
+//                name: 'form selector',
+//                value: mainSelector
+//             };
+//             sendResponse({ name: 'form selector', value: mainSelector });
+//          }, { once: true });
+//       })
+//    }
+//    return true; // Recommended to keep the message channel open for sendResponse
+// });

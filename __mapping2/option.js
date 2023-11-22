@@ -264,16 +264,17 @@ function deleteSet(event, counter) {
 function apply(event) {
    let collection = event.target.parentElement.parentElement.querySelectorAll('.fields');
    let collectData = [];
+
    collection.forEach(element => {
       const dataName = element.querySelector('input[id="fieldName"]').value;
       const dataPath = element.querySelector('input[id="fieldPath"]').value;
       const destination = element.querySelector('input[id="destination"]').value;
 
       let singularData = { data: dataName, path: dataPath, dest: destination };
-      console.log(singularData);
       collectData.push(singularData);
    });
-   console.log(collectData);
+
+   requestDataFromWebsite(collectData);
 
    //copy the data in a variable
    //msg 1 goes to content.js with sourcePath and brings the actual data back
@@ -283,10 +284,28 @@ function apply(event) {
    //--limitation : fills up other input fields with same destination address as well.
 }
 
+function requestDataFromWebsite(collectData) {
+   console.log(collectData);
+   const message = {
+      name: 'request data',
+      data: collectData
+   };
+   chrome.tabs.query({}, function (tabs) {
+      tabs.forEach(tab => {
+         chrome.tabs.sendMessage(tab.id, message, function (response) {
+            if (chrome.runtime.lastError) {
+               console.error(chrome.runtime.lastError);
+            } else {
+               if (!isDataUpdated) {
+                  // input2.value = response.value;
+                  // particularData.innerHTML = `<p>${response.data}</p>`;
+
+               }
+            }
+         });
+      });
+   });
+}
 
 showStoredData();
 
-
-//toggle the saved fields
-//create field button
-//use button
