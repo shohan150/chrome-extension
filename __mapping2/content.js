@@ -38,8 +38,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             const mainData = document.querySelector(mainSelector).innerHTML;
             sendResponse({ name: 'element selector', value: mainSelector, data: mainData });
          }, { once: true });
-
          break;
+
 
       case 'show data':
          const inputFields = document.querySelectorAll('input');
@@ -57,14 +57,23 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                sendResponse({ name: 'form selector', value: mainSelector });
             }, { once: true });
          })
-
          break;
 
+
       case 'request data':
+         const requestedData = [];
          message.data.forEach(query => {
             const collectData = document.querySelector(query.path).innerHTML;
-            console.log(collectData);
-            sendResponse({ name: 'responce to request', value: collectData });
+            query.content = collectData;
+            requestedData.push(query);
+         });
+         sendResponse({ name: 'responce to request', value: requestedData });
+         break;
+
+
+      case 'form fill up':
+         message.data.forEach(val => {
+            document.querySelector(val.dest).value = val.content;
          })
          break;
 

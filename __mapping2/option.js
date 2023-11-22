@@ -269,8 +269,9 @@ function apply(event) {
       const dataName = element.querySelector('input[id="fieldName"]').value;
       const dataPath = element.querySelector('input[id="fieldPath"]').value;
       const destination = element.querySelector('input[id="destination"]').value;
+      const mainData = '';
 
-      let singularData = { data: dataName, path: dataPath, dest: destination };
+      let singularData = { data: dataName, path: dataPath, dest: destination, content: mainData };
       collectData.push(singularData);
    });
 
@@ -285,7 +286,6 @@ function apply(event) {
 }
 
 function requestDataFromWebsite(collectData) {
-   console.log(collectData);
    const message = {
       name: 'request data',
       data: collectData
@@ -296,13 +296,28 @@ function requestDataFromWebsite(collectData) {
             if (chrome.runtime.lastError) {
                console.error(chrome.runtime.lastError);
             } else {
-               if (!isDataUpdated) {
-                  // input2.value = response.value;
-                  // particularData.innerHTML = `<p>${response.data}</p>`;
 
+               let checker = 0;
+               response.value.forEach(val => {
+                  if (val.content) checker++;
+               })
+               if (checker == response.value.length) {
+                  sendDataToForm(response.value);
                }
             }
          });
+      });
+   });
+}
+
+function sendDataToForm(receivedReponce) {
+   const message = {
+      name: 'form fill up',
+      data: receivedReponce
+   };
+   chrome.tabs.query({}, function (tabs) {
+      tabs.forEach(tab => {
+         chrome.tabs.sendMessage(tab.id, message);
       });
    });
 }
