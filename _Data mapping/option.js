@@ -1,13 +1,12 @@
-var newField = document.getElementById('addField');
-var saveField = document.getElementById('saveField');
-var dltField = document.getElementById('dltField');
-var container = document.querySelector('.container');
-var savedData = document.querySelector('.savedData');
+const newField = document.getElementById('addField');
+const saveField = document.getElementById('saveField');
+const dltField = document.getElementById('dltField');
+const container = document.querySelector('.container');
+const savedData = document.querySelector('.savedData');
 
 
-//add event listeners to the buttons
 newField.addEventListener('click', () => {
-   var newDiv = document.createElement('div');
+   let newDiv = document.createElement('div');
    newDiv.appendChild(newItem());
    container.appendChild(newDiv);
 });
@@ -21,7 +20,6 @@ saveField.addEventListener('click', () => {
    }, 10);
 });
 
-
 dltField.addEventListener('click', () => {
    chrome.storage.local.remove('fieldsData');
    showStoredData();
@@ -31,14 +29,14 @@ dltField.addEventListener('click', () => {
 function newItem() {
    const package = document.createElement('div');
    package.classList.add('fields');
-   var label1 = document.createElement('label');
-   var label2 = document.createElement('label');
-   var label3 = document.createElement('label');
-   var input1 = document.createElement('input');
-   var input2 = document.createElement('input');
-   var input3 = document.createElement('input');
-   var dltIcon = document.createElement('img');
-   var particularData = document.createElement('div');
+   const label1 = document.createElement('label');
+   const label2 = document.createElement('label');
+   const label3 = document.createElement('label');
+   const input1 = document.createElement('input');
+   const input2 = document.createElement('input');
+   const input3 = document.createElement('input');
+   const dltIcon = document.createElement('img');
+   const particularData = document.createElement('div');
 
 
    label1.innerText = 'Name : ';
@@ -86,7 +84,7 @@ function newItem() {
    });
 
    input3.addEventListener('click', (event) => {
-      var sendData = particularData.querySelector('div p').innerText;
+      let sendData = particularData.querySelector('div p').innerText;
       const message = {
          name: 'show data',
          data: sendData
@@ -115,7 +113,7 @@ function saveTheData() {
       let fieldsData = result.fieldsData || [];
 
       let newData = [];
-      var particularField = document.querySelectorAll('.container .fields');
+      let particularField = document.querySelectorAll('.container .fields');
       particularField.forEach(field => {
          const dataName = field.querySelector('input[id="fieldName"]').value;
          const dataPath = field.querySelector('input[id="fieldPath"]').value;
@@ -126,15 +124,15 @@ function saveTheData() {
          } else {
             console.error('You have entered an empty field');
          }
-
       });
+
       if (newData.length) {
          fieldsData.push(newData);
       }
+
       chrome.storage.local.set({ fieldsData });
    });
 }
-
 
 function showStoredData() {
    chrome.storage.local.get(['fieldsData'], function (result) {
@@ -155,8 +153,11 @@ function storedSection(storedData, counter) {
    const collapsableHeading = document.createElement('h3');
    const collapsableImage = document.createElement('img');
    const dataDiv = document.createElement('div');
+   const buttonDiv = document.createElement('div');
+   const addNew = document.createElement('button');
    const updateBtn = document.createElement('button');
    const deleteBtn = document.createElement('button');
+   const use = document.createElement('button');
 
    collapsable.className = 'collapsable';
    dataDiv.className = 'dataDiv';
@@ -167,30 +168,53 @@ function storedSection(storedData, counter) {
    updateBtn.id = 'update';
    deleteBtn.innerText = 'Delete this set';
    deleteBtn.id = 'dlt';
+   addNew.innerText = 'Add new field';
+   addNew.id = 'add';
+   use.innerText = 'Use';
+   use.id = 'use';
+   buttonDiv.classList.add('buttonDiv');
+   // dataDiv.classList.add('hideElement');
+   // buttonDiv.classList.add('hideElement');
 
    collapsable.appendChild(collapsableHeading);
    collapsable.appendChild(collapsableImage);
    collapsable.appendChild(dataDiv);
+   buttonDiv.appendChild(addNew);
+   buttonDiv.appendChild(updateBtn);
+   buttonDiv.appendChild(deleteBtn);
+   buttonDiv.appendChild(use);
+   collapsable.appendChild(buttonDiv);
    savedData.appendChild(collapsable);
 
-   collapsable.addEventListener('click', () => {
-      singleStoredData(storedData[counter], dataDiv);
-      collapsable.appendChild(updateBtn);
-      collapsable.appendChild(deleteBtn);
-      collapsableImage.style.transform = 'rotate(180deg)';
-   }, { once: true });
-
+   collapsableImage.addEventListener('click', () => {
+      // singleStoredData(storedData[counter], dataDiv);
+      // dataDiv.classList.toggle('hideElement');
+      // buttonDiv.classList.toggle('hideElement');
+      // collapsableImage.classList.toggle('rotateIcon');
+   });
+   singleStoredData(storedData[counter], dataDiv);
    updateBtn.addEventListener('click', (event) => {
       updateSet(event, counter);
-   })
+   });
 
    deleteBtn.addEventListener('click', (event) => {
       deleteSet(event, counter);
+   });
+
+   addNew.addEventListener('click', (event) => {
+      let newDiv = document.createElement('div');
+      newDiv.appendChild(newItem());
+      dataDiv.appendChild(newDiv);
+   });
+
+   use.addEventListener('click', (e) => {
+      apply(e);
    })
 }
 
 function singleStoredData(val, dataDiv) {
    let counter = 0;
+   dataDiv.innerHTML = '';
    val.forEach(value => {
       var newDiv = document.createElement('div');
       newDiv.appendChild(newItem());
@@ -203,15 +227,19 @@ function singleStoredData(val, dataDiv) {
 }
 
 function updateSet(event, counter) {
-   let storedField = event.target.parentElement.querySelectorAll('.dataDiv .fields');
+   let storedField = event.target.parentElement.parentElement.querySelectorAll('.dataDiv .fields');
    let newData = [];
 
    storedField.forEach(field => {
       const dataName = field.querySelector('input[id="fieldName"]').value;
       const dataPath = field.querySelector('input[id="fieldPath"]').value;
       const destination = field.querySelector('input[id="destination"]').value;
-      singularData = { data: dataName, path: dataPath, dest: destination };
-      newData.push(singularData);
+      if (dataName.trim() || dataPath.trim() || destination.trim()) {
+         singularData = { data: dataName, path: dataPath, dest: destination };
+         newData.push(singularData);
+      } else {
+         console.error('Empty field detected');
+      }
    });
 
 
@@ -230,7 +258,69 @@ function deleteSet(event, counter) {
       chrome.storage.local.set({ 'fieldsData': storedData });
    });
 
-   event.target.parentElement.remove();
+   event.target.parentElement.parentElement.remove();
+}
+
+function apply(event) {
+   let collection = event.target.parentElement.parentElement.querySelectorAll('.fields');
+   let collectData = [];
+
+   collection.forEach(element => {
+      const dataName = element.querySelector('input[id="fieldName"]').value;
+      const dataPath = element.querySelector('input[id="fieldPath"]').value;
+      const destination = element.querySelector('input[id="destination"]').value;
+      const mainData = '';
+
+      let singularData = { data: dataName, path: dataPath, dest: destination, content: mainData };
+      collectData.push(singularData);
+   });
+
+   requestDataFromWebsite(collectData);
+
+   //copy the data in a variable
+   //msg 1 goes to content.js with sourcePath and brings the actual data back
+   //--let the data pass that has all fields filled up. 
+   //--limitation : not tab exclusive
+   //msg 2 goes to content.js with the actual data to the destination path
+   //--limitation : fills up other input fields with same destination address as well.
+}
+
+function requestDataFromWebsite(collectData) {
+   const message = {
+      name: 'request data',
+      data: collectData
+   };
+   chrome.tabs.query({}, function (tabs) {
+      tabs.forEach(tab => {
+         chrome.tabs.sendMessage(tab.id, message, function (response) {
+            if (chrome.runtime.lastError) {
+               console.error(chrome.runtime.lastError);
+            } else {
+
+               let checker = 0;
+               response.value.forEach(val => {
+                  if (val.content) checker++;
+               })
+               if (checker == response.value.length) {
+                  sendDataToForm(response.value);
+               }
+            }
+         });
+      });
+   });
+}
+
+function sendDataToForm(receivedReponce) {
+   const message = {
+      name: 'form fill up',
+      data: receivedReponce
+   };
+   chrome.tabs.query({}, function (tabs) {
+      tabs.forEach(tab => {
+         chrome.tabs.sendMessage(tab.id, message);
+      });
+   });
 }
 
 showStoredData();
+
