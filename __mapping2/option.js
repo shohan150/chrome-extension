@@ -277,12 +277,6 @@ function apply(event) {
 
    requestDataFromWebsite(collectData);
 
-   //copy the data in a variable
-   //msg 1 goes to content.js with sourcePath and brings the actual data back
-   //--let the data pass that has all fields filled up. 
-   //--limitation : not tab exclusive
-   //msg 2 goes to content.js with the actual data to the destination path
-   //--limitation : fills up other input fields with same destination address as well.
 }
 
 function requestDataFromWebsite(collectData) {
@@ -296,11 +290,11 @@ function requestDataFromWebsite(collectData) {
             if (chrome.runtime.lastError) {
                console.error(chrome.runtime.lastError);
             } else {
-
                let checker = 0;
                response.value.forEach(val => {
                   if (val.content) checker++;
                })
+
                if (checker == response.value.length) {
                   sendDataToForm(response.value);
                }

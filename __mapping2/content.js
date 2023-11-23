@@ -1,18 +1,18 @@
-chrome.storage.local.get(['fieldsData'], function (result) {
-   result.fieldsData.forEach(val => {
-      const value1 = val.data;
-      const value2 = val.path;
+// chrome.storage.local.get(['fieldsData'], function (result) {
+//    result.fieldsData.forEach(val => {
+//       const value1 = val.data;
+//       const value2 = val.path;
 
-      const targetedData = document.querySelector(value2).innerText;
+//       const targetedData = document.querySelector(value2).innerText;
 
-      //establish connection between the content_script and popup.js
-      chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-         if (message.name == 'send data of already set path') {
-            chrome.runtime.sendMessage({ name: 'send website data to popup', title: value1, data: targetedData });
-         }
-      });
-   });
-});
+//       //establish connection between the content_script and popup.js
+//       chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+//          if (message.name == 'send data of already set path') {
+//             chrome.runtime.sendMessage({ name: 'send website data to popup', title: value1, data: targetedData });
+//          }
+//       });
+//    });
+// });
 
 
 function getSelector(element) {
@@ -61,12 +61,14 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 
       case 'request data':
-         const requestedData = [];
+         let requestedData = [];
          message.data.forEach(query => {
-            const collectData = document.querySelector(query.path).innerHTML;
-            query.content = collectData;
+            let collectData = document.querySelector(query.path).innerText;
+            query.content = collectData;;
             requestedData.push(query);
+            console.log(requestedData);
          });
+         console.log(requestedData);
          sendResponse({ name: 'responce to request', value: requestedData });
          break;
 
