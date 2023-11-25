@@ -173,8 +173,8 @@ function storedSection(storedData, counter) {
    use.innerText = 'Use';
    use.id = 'use';
    buttonDiv.classList.add('buttonDiv');
-   // dataDiv.classList.add('hideElement');
-   // buttonDiv.classList.add('hideElement');
+   dataDiv.classList.add('hideElement');
+   buttonDiv.classList.add('hideElement');
 
    collapsable.appendChild(collapsableHeading);
    collapsable.appendChild(collapsableImage);
@@ -187,12 +187,12 @@ function storedSection(storedData, counter) {
    savedData.appendChild(collapsable);
 
    collapsableImage.addEventListener('click', () => {
-      // singleStoredData(storedData[counter], dataDiv);
-      // dataDiv.classList.toggle('hideElement');
-      // buttonDiv.classList.toggle('hideElement');
-      // collapsableImage.classList.toggle('rotateIcon');
+      singleStoredData(storedData[counter], dataDiv);
+      dataDiv.classList.toggle('hideElement');
+      buttonDiv.classList.toggle('hideElement');
+      collapsableImage.classList.toggle('rotateIcon');
    });
-   singleStoredData(storedData[counter], dataDiv);
+   // singleStoredData(storedData[counter], dataDiv);
    updateBtn.addEventListener('click', (event) => {
       updateSet(event, counter);
    });
