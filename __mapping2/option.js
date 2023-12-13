@@ -322,18 +322,3 @@ function sendDataToForm(receivedReponce) {
 }
 
 
-
-// let repContainer = document.querySelector('.test');
-// // console.log(paragraphContainer);
-
-// repContainer.addEventListener('click', function (event) {
-//    let repIndex = Array.from(event.currentTarget.children).indexOf(event.target);
-
-
-//    let clickedContent = repContainer.children[repIndex].innerHTML;
-//    console.log('Clicked paragraph at index:', repIndex);
-//    console.log(clickedContent);
-//    let info = document.querySelector(`div[class="test"][id="eee"] > :nth-child(${repIndex + 1})`);
-//    console.log(info.innerText);
-
-// });
