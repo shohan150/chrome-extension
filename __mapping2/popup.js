@@ -23,5 +23,8 @@ const dynamicData = document.getElementById("dynamic-data");
 //    }
 // });
 
+document.querySelector('#options-button').addEventListener('click', function () {
+   chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
+});
 
 
