@@ -25,7 +25,7 @@ dltField.addEventListener('click', () => {
    showStoredData();
 })
 
-
+//create new field to take input values
 function newItem() {
    const package = document.createElement('div');
    package.classList.add('fields');
@@ -133,6 +133,11 @@ function saveTheData() {
       chrome.storage.local.set({ fieldsData });
    });
 }
+
+
+//upper section or create new set part complete. from here, functionality of stored sections begin
+
+showStoredData();
 
 function showStoredData() {
    chrome.storage.local.get(['fieldsData'], function (result) {
@@ -316,5 +321,19 @@ function sendDataToForm(receivedReponce) {
    });
 }
 
-showStoredData();
 
+
+// let repContainer = document.querySelector('.test');
+// // console.log(paragraphContainer);
+
+// repContainer.addEventListener('click', function (event) {
+//    let repIndex = Array.from(event.currentTarget.children).indexOf(event.target);
+
+
+//    let clickedContent = repContainer.children[repIndex].innerHTML;
+//    console.log('Clicked paragraph at index:', repIndex);
+//    console.log(clickedContent);
+//    let info = document.querySelector(`div[class="test"][id="eee"] > :nth-child(${repIndex + 1})`);
+//    console.log(info.innerText);
+
+// });
